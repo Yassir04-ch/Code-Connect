@@ -11,7 +11,7 @@
 <body>
 
   
-  <header class="bg-white shadow-sm">
+<header class="bg-white shadow-sm">
     <nav class="navbar navbar-expand-lg container">
       <a class="navbar-brand fw-bold" href="#">FreelanceLink</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
@@ -20,11 +20,13 @@
 
       <div class="collapse navbar-collapse" id="navMain">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="/pages/Freelances.html">Freelances</a></li>
-          <li class="nav-item"><a class="nav-link " href="/pages/services.html">Services</a></li>
-          <li class="nav-item"><a class="nav-link" href="mis">Missions</a></li>
-          <li class="nav-item"><a class="nav-link" href="avis.html">Avis</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pages/freelances.html">Freelances</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/pages/services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pages/missions.html">Missions</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pages/Avis.html">Avis</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pages/Contact_&_Messagerie.html">Contact</a></li>
+          <li class="nav-item button"><a class="nav-link" href="/pages/Connexion.html"><button class="button btn btn-outline-primary">Connexion</button></a></li>
+          
         </ul>
       </div>
     </nav>
@@ -85,7 +87,7 @@
               <p class="mb-2"><strong>Prix:</strong> 100DH &middot; <strong>Delais:</strong> 7 jours</p>
               <p class="mb-3 text-truncate" title="Description">Conception et developpement d un site vitrine responsive…</p>
               <div class="mt-auto d-flex gap-2">
-               
+          
                 <button class="btn btn-outline-secondary btn-sm" data-action="view" data-id="svc-01">Voir</button>
                 <button class="btn btn-outline-warning btn-sm" data-action="edit" data-id="svc-01">Modifier</button>
                 <button class="btn btn-outline-danger btn-sm" data-action="delete" data-id="svc-01">Supprimer</button>
@@ -101,12 +103,12 @@
   
     <nav class="mt-4" aria-label="Pagination services">
       <ul id="servicesPagination" class="pagination justify-content-center">
-       
+    
       </ul>
     </nav>
   </main>
 
- 
+
   <template id="templateServiceCard">
     <article class="col-12 col-md-6 col-lg-4">
       <div class="card h-100 shadow-sm">
