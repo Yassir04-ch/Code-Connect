@@ -77,75 +77,127 @@ function AddListFreeLance(){
 //formula by regex validation
 
 //function regex validation
-const form = document.getElementById('form');
-const username = document.getElementById('username');
-const email = document.getElementById('email');
-const password = document.getElementById('bio');
-const password2 = document.getElementById('job');
+// --------------------------------------------
+// Modification du profil Freelance
+// --------------------------------------------
 
-form.addEventListener('submit', e => {
-    e.preventDefault();
+// Selecteur dial DOM  le formulaire dans la modale
+const modal = document.getElementById("staticBackdrop");
+const modalTitle = document.getElementById("staticBackdropLabel");
+const form = modal.querySelector("form");
 
-    validateInputs();
-});
+// Champs du formulaire
+const inputName = document.getElementById("freelanceName");
+const inputSkill = document.getElementById("freelanceSkill");
+const inputSpecialisation = document.getElementById("freelanceSpecialisation");
+const inputAmount = document.getElementById("freelanceAmount");
+const inputPhoto = document.getElementById("freelancePhoto");
 
-const setError = (element, message) => {
-    const inputControl = element.parentElement;
-    const errorDisplay = inputControl.querySelector('.error');
+let selectedFreelancerIndex = null;
 
-    errorDisplay.innerText = message;
-    inputControl.classList.add('error');
-    inputControl.classList.remove('success')
+//  Ajout du bouton Modifier a chaque carte
+function AddListFreeLance() {
+  div_row.innerHTML = "";
+
+  ListFreeLence.forEach((element, index) => {
+    let card = `
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex gap-3">
+            <img src="${element.photos}" alt="${element.fullName}" class="card-avatar">
+            <div>
+              <h5 class="card-title mb-1">${element.fullName}</h5>
+              <small class="text-muted">${element.skils}</small>
+              <p class="mt-2 mb-1 text-muted">${element.spécialisations}</p>
+              <div class="text-warning">★★★★☆ <small class="text-muted">${element.note}</small></div>
+            </div>
+          </div>
+          <div class="card-footer bg-transparent d-flex justify-content-between">
+            <small class="text-muted">${element.amaunt}</small>
+            <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#editModal" onclick="openEditModal(${index})">
+              Modifier
+            </button>
+          </div>
+        </div>
+      </div>`;
+    div_row.innerHTML += card;
+  });
 }
 
-const setSuccess = element => {
-    const inputControl = element.parentElement;
-    const errorDisplay = inputControl.querySelector('.error');
+// Ouvrir la modale avec les infos du freelance 
+function openEditModal(index) {
+  selectedFreelancerIndex = index;
+  const f = ListFreeLence[index];
 
-    errorDisplay.innerText = '';
-    inputControl.classList.add('success');
-    inputControl.classList.remove('error');
-};
-
-const isValidEmail = email => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+  document.getElementById("editName").value = f.fullName;
+  document.getElementById("editSkill").value = f.skils;
+  document.getElementById("editSpecialisation").value = f.spécialisations;
+  document.getElementById("editAmount").value = f.amaunt.replace("€/h", "");
+  document.getElementById("editPhoto").value = f.photos;
 }
 
-const validateInputs = () => {
-    const usernameValue = username.value.trim();
-    const emailValue = email.value.trim();
-    const passwordValue = password.value.trim();
-    const password2Value = password2.value.trim();
+// Validation Regex et mise à jour 
+function saveFreelanceChanges() {
+  const name = document.getElementById("editName").value.trim();
+  const skill = document.getElementById("editSkill").value.trim();
+  const specialisation = document.getElementById("editSpecialisation").value.trim();
+  const amount = document.getElementById("editAmount").value.trim();
+  const photo = document.getElementById("editPhoto").value.trim();
 
-    if(usernameValue === '') {
-        setError(username, 'Username is required');
-    } else {
-        setSuccess(username);
-    }
+  // Regex simples pour valider les champs
+  const nameRegex = /^[A-Za-zÀ-ÿ\s'-]{3,40}$/;
+  const skillRegex = /^[A-Za-zÀ-ÿ\s'-]{3,40}$/;
+  const amountRegex = /^[0-9]{1,3}$/;
 
-    if(emailValue === '') {
-        setError(email, 'Email is required');
-    } else if (!isValidEmail(emailValue)) {
-        setError(email, 'Provide a valid email address');
-    } else {
-        setSuccess(email);
-    }
+  if (!nameRegex.test(name)) {
+    alert("Nom invalide (3 à 40 lettres)");
+    return;
+  }
 
-    if(passwordValue === '') {
-        setError(password, 'Password is required');
-    } else if (passwordValue.length < 8 ) {
-        setError(password, 'Password must be at least 8 character.')
-    } else {
-        setSuccess(password);
-    }
+  if (!skillRegex.test(skill)) {
+    alert("Compétence invalide");
+    return;
+  }
 
-    if(password2Value === '') {
-        setError(password2, 'Please confirm your password');
-    } else if (password2Value !== passwordValue) {
-        setError(password2, "Passwords doesn't match");
-    } else {
-        setSuccess(password2);
-    }
+  if (!amountRegex.test(amount)) {
+    alert("Montant invalide");
+    return;
+  }
 
-};
+  // Mise a jour des donnees
+  ListFreeLence[selectedFreelancerIndex] = {
+    ...ListFreeLence[selectedFreelancerIndex],
+    fullName: name,
+    skils: skill,
+    spécialisations: specialisation,
+    amaunt: `${amount}€/h`,
+    photos: photo || ListFreeLence[selectedFreelancerIndex].photos
+  };
+
+  // Sauvegarde dans LocalStorage
+  localStorage.setItem("freelancers", JSON.stringify(ListFreeLence));
+
+  // Mise a jour visuelle
+  AddListFreeLance();
+
+  // Fermer la modale
+  const modalInstance = bootstrap.Modal.getInstance(document.getElementById("editModal"));
+  modalInstance.hide();
+
+  alert("Profil mis a jour avec succes !");
+}
+
+// i charge les donnes
+async function fetshdata(file) {
+  let get_data = await fetch(file);
+  let xml = await get_data.text();
+  ListFreeLence = JSON.parse(xml);
+
+  // Vérifie s’il y a des données modifiées dans le LocalStorage ider verification  ila kano les doonnes f local storage
+  const stored = localStorage.getItem("freelancers");
+  if (stored) {
+    ListFreeLence = JSON.parse(stored);
+  }
+
+  AddListFreeLance();
+}
