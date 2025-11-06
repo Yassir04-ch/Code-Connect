@@ -136,7 +136,7 @@ function openEditModal(index) {
   document.getElementById("editPhoto").value = f.photos;
 }
 
-// Validation Regex et mise à jour 
+// Validation Regex et mise a jour 
 function saveFreelanceChanges() {
   const name = document.getElementById("editName").value.trim();
   const skill = document.getElementById("editSkill").value.trim();
@@ -164,7 +164,7 @@ function saveFreelanceChanges() {
     return;
   }
 
-  // Mise a jour des donnees
+  // Mise a jour de donnees dakhel dial array
   ListFreeLence[selectedFreelancerIndex] = {
     ...ListFreeLence[selectedFreelancerIndex],
     fullName: name,
@@ -193,7 +193,7 @@ async function fetshdata(file) {
   let xml = await get_data.text();
   ListFreeLence = JSON.parse(xml);
 
-  // Vérifie s’il y a des données modifiées dans le LocalStorage ider verification  ila kano les doonnes f local storage
+  //  ider verification  ila kano les doonnes f local storage
   const stored = localStorage.getItem("freelancers");
   if (stored) {
     ListFreeLence = JSON.parse(stored);
