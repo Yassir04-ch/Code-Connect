@@ -35,7 +35,16 @@ async function fetsh_header(file){
 fetsh_header('/components/header.html');
 
 // --------------- Card -------------------
+function optionslist(){
 
+  const option = ["Développeur Web","Designer","Rédacteur","Marketing"];
+  for(let i = 0 ; i < option.length ; i++){
+    const opt = document.createElement("option");
+    opt.textContent = option[i];
+    selectFiltre.appendChild(opt);
+  }
+}
+optionslist();
 
 
 
@@ -73,15 +82,17 @@ function AddListFreeLance(liste = ListFreeLence){
 
 }
 
+
+// add des  options 
+
+
+
 // ---------------- filter -----------------------
 
 function filter(){
    let listfilter ;
   if(selectFiltre.value === "Toutes les spécialités"){
    listfilter = ListFreeLence;
-  }
-  if(selectFiltre.value != selectFiltre.value ){
-    alert("Cette option n'est pas disponible.")
   }
   else{
     listfilter = ListFreeLence.filter(fil => fil.skils === selectFiltre.value)
