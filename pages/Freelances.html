@@ -16,101 +16,37 @@
     .rating-star { color: #f5c542; }
   </style>
 </head>
-
-
 <!-- header  -->
 <header id="header" class="bg-white shadow-sm">
 
 </header>
 
 
-  <!-- Filtres -->
-  <div class="container mb-4">
-    <div class="row">
-      <div class="col-md-8">
-        <h3>Liste des freelances</h3>
-      </div>
-      <div class="col-md-4 text-md-end">
-        <select class="form-select">
-          <option selected>Toutes les spécialités</option>
-          <option>Developpeur Web</option>
-          <option>Designer</option>
-          <option>Redacteur</option>
-          <option>Marketing</option>
-        </select>
-      </div>
+<!-- Filtres -->
+<div class="container mb-4">
+  <div class="row">
+    <div class="col-md-8">
+      <h3>Liste des freelances</h3>
+    </div>
+    <div class="col-md-4 text-md-end">
+      <select id="filtre" class="form-select">
+        <option selected>Toutes les spécialités</option>
+        
+      </select>
     </div>
   </div>
+</div>
 
-  <!-- Liste Freelances -->
-  <div class="container">
-    <div class="row g-4">
 
-      <!-- Carte 1 -->
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body d-flex gap-3">
-            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Mouad" class="card-avatar">
-            <div>
-              <h5 class="card-title mb-1">Mouad Sartati</h5>
-              <small class="text-muted">Développeur Web</small>
-              <p class="mt-2 mb-1 text-muted">Spécialisée en java </p>
-              <div class="text-warning">
-                ★★★★☆ <small class="text-muted">(4.7)</small>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer bg-transparent d-flex justify-content-between">
-            <small class="text-muted">40€/h</small>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#profilModal">Voir</button>
-          </div>
-        </div>
-      </div>
+<!-- Liste Freelances -->
+<div class="container">
+  <div id="div_row" class="row g-4">
 
-      <!-- Carte 2 -->
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body d-flex gap-3">
-            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Younesse" class="card-avatar">
-            <div>
-              <h5 class="card-title mb-1">Younesse Rajix</h5>
-              <small class="text-muted">Designer</small>
-              <p class="mt-2 mb-1 text-muted">UI/UX et prototypage</p>
-              <div class="text-warning">
-                ★★★★☆ <small class="text-muted">(4.4)</small>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer bg-transparent d-flex justify-content-between">
-            <small class="text-muted">35€/h</small>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#profilModal">Voir</button>
-          </div>
-        </div>
-      </div>
+    
 
-      <!-- Carte 3 -->
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body d-flex gap-3">
-            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Yassir" class="card-avatar">
-            <div>
-              <h5 class="card-title mb-1">Yassir Cherqui</h5>
-              <small class="text-muted">Rédactrice</small>
-              <p class="mt-2 mb-1 text-muted">Spécialiste java & MArketing</p>
-              <div class="text-warning">
-                ★★★★★ <small class="text-muted">(4.9)</small>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer bg-transparent d-flex justify-content-between">
-            <small class="text-muted">30€/h</small>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#profilModal">Voir</button>
-          </div>
-        </div>
-      </div>
 
-    </div>
   </div>
+</div>
 
 
 

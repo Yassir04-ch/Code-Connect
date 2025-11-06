@@ -73,6 +73,11 @@ function AddListFreeLance(liste = ListFreeLence){
 
 }
 
+
+// add des  options 
+
+
+
 // ---------------- filter -----------------------
 
 
@@ -97,34 +102,6 @@ const inputPhoto = document.getElementById("freelancePhoto");
 
 let selectedFreelancerIndex = null;
 
-//  Ajout du bouton Modifier a chaque carte
-function AddListFreeLance() {
-  div_row.innerHTML = "";
-
-  ListFreeLence.forEach((element, index) => {
-    let card = `
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body d-flex gap-3">
-            <img src="${element.photos}" alt="${element.fullName}" class="card-avatar">
-            <div>
-              <h5 class="card-title mb-1">${element.fullName}</h5>
-              <small class="text-muted">${element.skils}</small>
-              <p class="mt-2 mb-1 text-muted">${element.spécialisations}</p>
-              <div class="text-warning">★★★★☆ <small class="text-muted">${element.note}</small></div>
-            </div>
-          </div>
-          <div class="card-footer bg-transparent d-flex justify-content-between">
-            <small class="text-muted">${element.amaunt}</small>
-            <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#editModal" onclick="openEditModal(${index})">
-              Modifier
-            </button>
-          </div>
-        </div>
-      </div>`;
-    div_row.innerHTML += card;
-  });
-}
 
 // Ouvrir la modale avec les infos du freelance 
 function openEditModal(index) {
@@ -204,13 +181,23 @@ async function fetshdata(file) {
   AddListFreeLance();
 }
 
+// list des option 
+
+function optionslist(){
+
+  const option = ["Développeur Web","Designer","Rédacteur","Marketing"];
+  for(let i = 0 ; i < option.length ; i++){
+    const opt = document.createElement("option");
+    opt.textContent = option[i];
+    selectFiltre.appendChild(opt);
+  }
+}
+optionslist();
+
 function filter(){
    let listfilter ;
   if(selectFiltre.value === "Toutes les spécialités"){
    listfilter = ListFreeLence;
-  }
-  if(selectFiltre.value != selectFiltre.value ){
-    alert("Cette option n'est pas disponible.")
   }
   else{
     listfilter = ListFreeLence.filter(fil => fil.skils === selectFiltre.value)
