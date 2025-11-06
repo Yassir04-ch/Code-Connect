@@ -220,3 +220,107 @@ function filter(){
 
 selectFiltre.addEventListener("change",filter)
 
+
+// SECTION : SERVICES — Consultation des services
+
+
+// Sélecteurs DOM
+const servicesContainer = document.getElementById("servicesContainer");
+const searchServiceInput = document.getElementById("servicesSearch");
+const filterServiceSelect = document.getElementById("filterCategory");
+const sortServiceSelect = document.getElementById("sortPrice");
+const serviceTemplate = document.getElementById("templateServiceCard");
+
+let servicesList = [];
+let filteredServices = [];
+
+// Charger les services 
+async function fetchServicesData(file) {
+  try {
+    const response = await fetch(file);
+    const data = await response.json();
+    servicesList = data;
+    filteredServices = [...servicesList];
+    renderServices(filteredServices);
+  } catch (err) {
+    console.error("Erreur de chargement des services :", err);
+    servicesContainer.innerHTML = `<p class="text-center text-danger">Erreur de chargement des données.</p>`;
+  }
+}
+
+// Afficher les services 
+function renderServices(list) {
+  if (!servicesContainer) return;
+  servicesContainer.innerHTML = "";
+
+  if (list.length === 0) {
+    servicesContainer.innerHTML = `<p class="text-center text-muted mt-3">Aucun service trouvé.</p>`;
+    return;
+  }
+
+  list.forEach(service => {
+    const card = serviceTemplate.content.cloneNode(true);
+
+    // Remplir les infos
+    const img = card.querySelector("img");
+    img.src = service.image || "../assets/images/default-service.jpg";
+    img.alt = service.title;
+
+    card.querySelector(".card-title").textContent = service.title;
+    card.querySelector(".card-text").textContent = 
+      `Freelance: ${service.freelancer} — Spécialité: ${service.category}`;
+    card.querySelector(".service-price").textContent = `${service.price} DH`;
+    card.querySelector(".service-time").textContent = `${service.time} jours`;
+    card.querySelector(".description").textContent = service.description;
+
+    servicesContainer.appendChild(card);
+  });
+}
+
+// Recherche 
+if (searchServiceInput) {
+  searchServiceInput.addEventListener("input", () => {
+    const searchTerm = searchServiceInput.value.toLowerCase().trim();
+    filteredServices = servicesList.filter(service =>
+      service.title.toLowerCase().includes(searchTerm) ||
+      service.freelancer.toLowerCase().includes(searchTerm) ||
+      service.category.toLowerCase().includes(searchTerm)
+    );
+    renderServices(filteredServices);
+  });
+}
+
+//  Filtrage par catégorie 
+if (filterServiceSelect) {
+  filterServiceSelect.addEventListener("change", () => {
+    const cat = filterServiceSelect.value;
+
+    if (cat === "") {
+      filteredServices = [...servicesList];
+    } else {
+      filteredServices = servicesList.filter(svc => svc.category === cat);
+    }
+
+    renderServices(filteredServices);
+  });
+}
+
+// Tri bl prix 
+if (sortServiceSelect) {
+  sortServiceSelect.addEventListener("change", () => {
+    const sort = sortServiceSelect.value;
+
+    if (sort === "price-asc") {
+      filteredServices.sort((a, b) => a.price - b.price);
+    } else if (sort === "price-desc") {
+      filteredServices.sort((a, b) => b.price - a.price);
+    } else if (sort === "time-asc") {
+      filteredServices.sort((a, b) => a.time - b.time);
+    }
+
+    renderServices(filteredServices);
+  });
+}
+
+//charger donnes f demarrraage
+fetchServicesData("/services/services.json");
