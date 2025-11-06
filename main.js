@@ -75,6 +75,135 @@ function AddListFreeLance(liste = ListFreeLence){
 
 // ---------------- filter -----------------------
 
+
+//formula by regex validation
+
+//function regex validation
+// --------------------------------------------
+// Modification du profil Freelance
+// --------------------------------------------
+
+// Selecteur dial DOM  le formulaire dans la modale
+const modal = document.getElementById("staticBackdrop");
+const modalTitle = document.getElementById("staticBackdropLabel");
+const form = modal.querySelector("form");
+
+// Champs du formulaire
+const inputName = document.getElementById("freelanceName");
+const inputSkill = document.getElementById("freelanceSkill");
+const inputSpecialisation = document.getElementById("freelanceSpecialisation");
+const inputAmount = document.getElementById("freelanceAmount");
+const inputPhoto = document.getElementById("freelancePhoto");
+
+let selectedFreelancerIndex = null;
+
+//  Ajout du bouton Modifier a chaque carte
+function AddListFreeLance() {
+  div_row.innerHTML = "";
+
+  ListFreeLence.forEach((element, index) => {
+    let card = `
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex gap-3">
+            <img src="${element.photos}" alt="${element.fullName}" class="card-avatar">
+            <div>
+              <h5 class="card-title mb-1">${element.fullName}</h5>
+              <small class="text-muted">${element.skils}</small>
+              <p class="mt-2 mb-1 text-muted">${element.spécialisations}</p>
+              <div class="text-warning">★★★★☆ <small class="text-muted">${element.note}</small></div>
+            </div>
+          </div>
+          <div class="card-footer bg-transparent d-flex justify-content-between">
+            <small class="text-muted">${element.amaunt}</small>
+            <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#editModal" onclick="openEditModal(${index})">
+              Modifier
+            </button>
+          </div>
+        </div>
+      </div>`;
+    div_row.innerHTML += card;
+  });
+}
+
+// Ouvrir la modale avec les infos du freelance 
+function openEditModal(index) {
+  selectedFreelancerIndex = index;
+  const f = ListFreeLence[index];
+
+  document.getElementById("editName").value = f.fullName;
+  document.getElementById("editSkill").value = f.skils;
+  document.getElementById("editSpecialisation").value = f.spécialisations;
+  document.getElementById("editAmount").value = f.amaunt.replace("€/h", "");
+  document.getElementById("editPhoto").value = f.photos;
+}
+
+// Validation Regex et mise a jour 
+function saveFreelanceChanges() {
+  const name = document.getElementById("editName").value.trim();
+  const skill = document.getElementById("editSkill").value.trim();
+  const specialisation = document.getElementById("editSpecialisation").value.trim();
+  const amount = document.getElementById("editAmount").value.trim();
+  const photo = document.getElementById("editPhoto").value.trim();
+
+  // Regex simples pour valider les champs
+  const nameRegex = /^[A-Za-zÀ-ÿ\s'-]{3,40}$/;
+  const skillRegex = /^[A-Za-zÀ-ÿ\s'-]{3,40}$/;
+  const amountRegex = /^[0-9]{1,3}$/;
+
+  if (!nameRegex.test(name)) {
+    alert("Nom invalide (3 à 40 lettres)");
+    return;
+  }
+
+  if (!skillRegex.test(skill)) {
+    alert("Compétence invalide");
+    return;
+  }
+
+  if (!amountRegex.test(amount)) {
+    alert("Montant invalide");
+    return;
+  }
+
+  // Mise a jour de donnees dakhel dial array
+  ListFreeLence[selectedFreelancerIndex] = {
+    ...ListFreeLence[selectedFreelancerIndex],
+    fullName: name,
+    skils: skill,
+    spécialisations: specialisation,
+    amaunt: `${amount}€/h`,
+    photos: photo || ListFreeLence[selectedFreelancerIndex].photos
+  };
+
+  // Sauvegarde dans LocalStorage
+  localStorage.setItem("freelancers", JSON.stringify(ListFreeLence));
+
+  // Mise a jour visuelle
+  AddListFreeLance();
+
+  // Fermer la modale
+  const modalInstance = bootstrap.Modal.getInstance(document.getElementById("editModal"));
+  modalInstance.hide();
+
+  alert("Profil mis a jour avec succes !");
+}
+
+// i charge les donnes
+async function fetshdata(file) {
+  let get_data = await fetch(file);
+  let xml = await get_data.text();
+  ListFreeLence = JSON.parse(xml);
+
+  //  ider verification  ila kano les doonnes f local storage
+  const stored = localStorage.getItem("freelancers");
+  if (stored) {
+    ListFreeLence = JSON.parse(stored);
+  }
+
+  AddListFreeLance();
+}
+
 function filter(){
    let listfilter ;
   if(selectFiltre.value === "Toutes les spécialités"){
@@ -90,3 +219,4 @@ function filter(){
 }
 
 selectFiltre.addEventListener("change",filter)
+
