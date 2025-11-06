@@ -22,8 +22,16 @@
         "photos" : "../assets/images/profil3.jpg",
         "spécialisations" : "Spécialiste java & MArketing",
         "note" : "(4.9)" ,
-        "skils" : "Rédactrice",
+        "skils" : "Rédacteur",
         "amaunt" : "30€/h"
+    },
+    {
+        "fullName" : "Mouad Sartati",
+        "photos" : "../assets/images/profil1.jpg",
+        "spécialisations" : "Spécialisée en java",
+        "note" : "(4.7)" ,
+        "skils" : "Marketing",
+        "amaunt" : "40€/h"
     }
 
 ]

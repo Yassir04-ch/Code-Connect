@@ -8,11 +8,12 @@ const specialisee = document.getElementById("specialisee")
 const amuont_freeLance = document.getElementById("amuont_freeLance")
 const div_row = document.getElementById("div_row")
 const header = document.getElementById("header")
+const selectFiltre = document.getElementById("filtre");
+
 
 let ListFreeLence ;
 
 // ---------- Data Json ----------------
-
 
 async function fetshdata(file){
     let get_data = await fetch(file);
@@ -21,7 +22,6 @@ async function fetshdata(file){
 
     AddListFreeLance();
 }
-
 fetshdata('/services/data.json');
 
 // ------------- header ----------------
@@ -42,9 +42,10 @@ fetsh_header('/components/header.html');
 // ---------functions ----------------
 
 
-function AddListFreeLance(){
+function AddListFreeLance(liste = ListFreeLence){
 
-    ListFreeLence.forEach(element => {
+   div_row.innerHTML = "";
+    liste.forEach(element => {
 
          let card = `<div class="col-md-4">
         <div id = "Carte" class="card h-100 shadow-sm">
@@ -73,6 +74,7 @@ function AddListFreeLance(){
 }
 
 // ---------------- filter -----------------------
+
 
 //formula by regex validation
 
@@ -201,3 +203,20 @@ async function fetshdata(file) {
 
   AddListFreeLance();
 }
+
+function filter(){
+   let listfilter ;
+  if(selectFiltre.value === "Toutes les spécialités"){
+   listfilter = ListFreeLence;
+  }
+  if(selectFiltre.value != selectFiltre.value ){
+    alert("Cette option n'est pas disponible.")
+  }
+  else{
+    listfilter = ListFreeLence.filter(fil => fil.skils === selectFiltre.value)
+  }
+  AddListFreeLance(listfilter);  
+}
+
+selectFiltre.addEventListener("change",filter)
+
