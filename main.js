@@ -35,16 +35,7 @@ async function fetsh_header(file){
 fetsh_header('/components/header.html');
 
 // --------------- Card -------------------
-function optionslist(){
 
-  const option = ["Développeur Web","Designer","Rédacteur","Marketing"];
-  for(let i = 0 ; i < option.length ; i++){
-    const opt = document.createElement("option");
-    opt.textContent = option[i];
-    selectFiltre.appendChild(opt);
-  }
-}
-optionslist();
 
 
 
@@ -89,6 +80,120 @@ function AddListFreeLance(liste = ListFreeLence){
 
 // ---------------- filter -----------------------
 
+
+//formula by regex validation
+
+//function regex validation
+// --------------------------------------------
+// Modification du profil Freelance
+// --------------------------------------------
+
+// Selecteur dial DOM  le formulaire dans la modale
+const modal = document.getElementById("staticBackdrop");
+const modalTitle = document.getElementById("staticBackdropLabel");
+const form = modal.querySelector("form");
+
+// Champs du formulaire
+const inputName = document.getElementById("freelanceName");
+const inputSkill = document.getElementById("freelanceSkill");
+const inputSpecialisation = document.getElementById("freelanceSpecialisation");
+const inputAmount = document.getElementById("freelanceAmount");
+const inputPhoto = document.getElementById("freelancePhoto");
+
+let selectedFreelancerIndex = null;
+
+
+// Ouvrir la modale avec les infos du freelance 
+function openEditModal(index) {
+  selectedFreelancerIndex = index;
+  const f = ListFreeLence[index];
+
+  document.getElementById("editName").value = f.fullName;
+  document.getElementById("editSkill").value = f.skils;
+  document.getElementById("editSpecialisation").value = f.spécialisations;
+  document.getElementById("editAmount").value = f.amaunt.replace("€/h", "");
+  document.getElementById("editPhoto").value = f.photos;
+}
+
+// Validation Regex et mise a jour 
+function saveFreelanceChanges() {
+  const name = document.getElementById("editName").value.trim();
+  const skill = document.getElementById("editSkill").value.trim();
+  const specialisation = document.getElementById("editSpecialisation").value.trim();
+  const amount = document.getElementById("editAmount").value.trim();
+  const photo = document.getElementById("editPhoto").value.trim();
+
+  // Regex simples pour valider les champs
+  const nameRegex = /^[A-Za-zÀ-ÿ\s'-]{3,40}$/;
+  const skillRegex = /^[A-Za-zÀ-ÿ\s'-]{3,40}$/;
+  const amountRegex = /^[0-9]{1,3}$/;
+
+  if (!nameRegex.test(name)) {
+    alert("Nom invalide (3 à 40 lettres)");
+    return;
+  }
+
+  if (!skillRegex.test(skill)) {
+    alert("Compétence invalide");
+    return;
+  }
+
+  if (!amountRegex.test(amount)) {
+    alert("Montant invalide");
+    return;
+  }
+
+  // Mise a jour de donnees dakhel dial array
+  ListFreeLence[selectedFreelancerIndex] = {
+    ...ListFreeLence[selectedFreelancerIndex],
+    fullName: name,
+    skils: skill,
+    spécialisations: specialisation,
+    amaunt: `${amount}€/h`,
+    photos: photo || ListFreeLence[selectedFreelancerIndex].photos
+  };
+
+  // Sauvegarde dans LocalStorage
+  localStorage.setItem("freelancers", JSON.stringify(ListFreeLence));
+
+  // Mise a jour visuelle
+  AddListFreeLance();
+
+  // Fermer la modale
+  const modalInstance = bootstrap.Modal.getInstance(document.getElementById("editModal"));
+  modalInstance.hide();
+
+  alert("Profil mis a jour avec succes !");
+}
+
+// i charge les donnes
+async function fetshdata(file) {
+  let get_data = await fetch(file);
+  let xml = await get_data.text();
+  ListFreeLence = JSON.parse(xml);
+
+  //  ider verification  ila kano les doonnes f local storage
+  const stored = localStorage.getItem("freelancers");
+  if (stored) {
+    ListFreeLence = JSON.parse(stored);
+  }
+
+  AddListFreeLance();
+}
+
+// list des option 
+
+function optionslist(){
+
+  const option = ["Développeur Web","Designer","Rédacteur","Marketing"];
+  for(let i = 0 ; i < option.length ; i++){
+    const opt = document.createElement("option");
+    opt.textContent = option[i];
+    selectFiltre.appendChild(opt);
+  }
+}
+optionslist();
+
 function filter(){
    let listfilter ;
   if(selectFiltre.value === "Toutes les spécialités"){
@@ -101,3 +206,4 @@ function filter(){
 }
 
 selectFiltre.addEventListener("change",filter)
+
