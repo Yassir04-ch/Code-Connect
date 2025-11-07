@@ -17,23 +17,28 @@ const submit = document.getElementById("submit")
 //-------------cart-profile-dom------
 const image_profil=document.getElementById('image_profil');
 
-const btn_voir = document.getElementsByClassName(".mouad");
+const btn_voir = document.getElementsByClassName("mouad");
 
+// ---------------- DOM mession --------------------
 
+// ----------- Array ----------
 let ListFreeLence ;
+let mission ;
 
 // ---------- Data Json ----------------
 
 async function fetshdata(file){
     let get_data = await fetch(file);
-    let xml = await get_data.text();
-    ListFreeLence = JSON.parse(xml);
-    AddListFreeLance()
+    let respons = await get_data.json();
+
+    return respons
 }
 
-function copyData(){
-  ListFreeLence = fetshdata('/services/data.json');
+async function copyData(){
+  ListFreeLence = await fetshdata('/services/data.json');
+  AddListFreeLance()
 }
+
 
 // ------------- header ----------------
 async function fetsh_header(file){
@@ -51,7 +56,7 @@ function getData(){
 }
 
 function setData(){
-  localStorage.setItem('data_freelance',ListFreeLence);
+  localStorage.setItem('data_freelance',JSON.stringify(ListFreeLence));
 }
 
 if(localStorage.getItem('data_freelance')){
@@ -70,9 +75,9 @@ if(localStorage.getItem('data_freelance')){
 
 function AddListFreeLance(){
 
+
    div_row.innerHTML = "";
     ListFreeLence.forEach(element => {
-
          let card = `<div class="col-md-4">
         <div id = "Carte" class="card h-100 shadow-sm">
           <div class="card-body d-flex gap-3">
@@ -107,7 +112,7 @@ function AddListFreeLance(){
  
 //----------------card-mission-----------------
 const div_misson = document.getElementById("card_mission")
-let mission ;
+
 async function fetshmission(file){
     let get_data = await fetch(file);
     let xml = await get_data.text();
@@ -184,10 +189,6 @@ function validation(){
     })
 
 
-    if(regex()){
-       alert("erour")
-    }else{
-
        if(isvalid){
         let objet = {
            fullName : add_freelance_Form.elements.name.value,
@@ -199,14 +200,13 @@ function validation(){
         }
 
         ListFreeLence.push(objet)
-        console.log(ListFreeLence)
         setData()
-        const staticBackdrop = document.getElementById('staticBackdrop')
-        staticBackdrop.style.display = "none"
+        // ----------- hidden modul ----------
+        const staticBackdrop = bootstrap.Modal.getInstance(document.getElementById('staticBackdrop')) 
+        staticBackdrop.hide()
         AddListFreeLance()
 
-    }
-    }
+    } 
 
 
   })
