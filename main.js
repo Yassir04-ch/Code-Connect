@@ -244,11 +244,11 @@ async function fetchServicesData(file) {
     renderServices(filteredServices);
   } catch (err) {
     console.error("Erreur de chargement des services :", err);
-    servicesContainer.innerHTML = `<p class="text-center text-danger">Erreur de chargement des données.</p>`;
+    servicesContainer.innerHTML = `<p class="text-center text-danger">Erreur de chargement des donnees.</p>`;
   }
 }
 
-// Afficher les services 
+// Afficher  services 
 function renderServices(list) {
   if (!servicesContainer) return;
   servicesContainer.innerHTML = "";
@@ -290,7 +290,7 @@ if (searchServiceInput) {
   });
 }
 
-//  Filtrage par catégorie 
+//  Filtrage b categorie 
 if (filterServiceSelect) {
   filterServiceSelect.addEventListener("change", () => {
     const cat = filterServiceSelect.value;
