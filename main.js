@@ -11,11 +11,13 @@ const div_row = document.getElementById("div_row")
 const header = document.getElementById("header")
 const selectFiltre = document.getElementById("filtre");
 
+const add_freelance_Form = document.forms['add_freelance'];
+const submit = document.getElementById("submit")
 
 //-------------cart-profile-dom------
 const image_profil=document.getElementById('image_profil');
 
-const btn_voir = document.getElementsByClassName(".mouad")
+const btn_voir = document.getElementsByClassName(".mouad");
 
 
 let ListFreeLence ;
@@ -48,7 +50,6 @@ fetsh_header('/components/header.html');
 
 // ---------functions ----------------
 
-
 function AddListFreeLance(liste = ListFreeLence){
 
    div_row.innerHTML = "";
@@ -72,83 +73,19 @@ function AddListFreeLance(liste = ListFreeLence){
             <button type="button" class="btn btn-primary mouad" data-bs-toggle="modal" data-bs-target="#affich_prf" >Voir</button>
           </div>
         </div>
-      </div>` 
+      </div> `
 
       div_row.innerHTML += card
-        
+
     });
 
 }
-
-
-// add des  options 
-
-
-
-// ---------------- filter -----------------------
-
-
-
-
-
 
 // --------------- Card-porfile -------------------
 
 
  
-function AddListFreeLance(){
 
-    ListFreeLence.forEach(element => {
-
-         let card = `  <div class="modal fade" id="affich_prf" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Profil</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-
-          <div class="  container ">
-            <img src="/assets/download (10).jpg" alt="Mouad" id="" class="img-thumbnail avatar mt-2 mb-3 ">
-
-            <h4 class="mb-0 col">Mouad El Amrani</h4>
-            <div class="small-muted mb-2 col">Full-Stack Web & Mobile Developer</div>
-            <p class="service-rate col">25 EUR / heure</p>
-          </div>
-          <div>
-            <h5 class="mb-1">À propos</h5>
-            <p class="small-muted mb-2">
-              Développeur full-stack avec 3 ans d'expérience, spécialisé en JavaScript, React, Node.js et Flutter.
-              J'aime construire des interfaces propres et des APIs performantes.
-            </p>
-          </div>
-
-          <div class="mb-3">
-            <h6 class="mb-2">Compétences</h6>
-            <div>
-              <span class="badge bg-primary skill-badge">JavaScript — expert (4 ans)</span>
-              <span class="badge bg-primary skill-badge">React — advanced (3 ans)</span>
-              <span class="badge bg-primary skill-badge">Node.js — advanced (3 ans)</span>
-              <span class="badge bg-primary skill-badge">Flutter — intermediate (2 ans)</span>
-            </div>
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">modification </button>
-        </div>
-      </div>
-    </div>
-  </div>` 
-
-      div_row.innerHTML += card
-        
-    });
-
-}
  
 //----------------card-mission-----------------
 const div_misson = document.getElementById("card_mission")
@@ -203,6 +140,65 @@ const inputAmount = document.getElementById("freelanceAmount");
 const inputPhoto = document.getElementById("freelancePhoto");
 
 let selectedFreelancerIndex = null;
+
+
+// ----------------- RegEx -----------------
+
+
+// import {nameRegex , skillRegex , amountRegex ,regex} from './utils/Rejex.js';
+
+// --------------- validation -------------------
+
+function validation(){
+  submit.addEventListener("click",(e)=>{
+    e.preventDefault()
+    
+    const Names = ["name","email","password","skils","specialisations"]
+    let isvalid = true;
+    Names.forEach(ele =>{
+      let valid_name = add_freelance_Form.elements[ele];
+      valid_name.style.border = '#ccc solid 1px'
+      if(valid_name.value.trim() == ''){
+        valid_name.style.border = 'red solid 1px'
+        isvalid = false
+      }
+
+    })
+
+
+    if(regex()){
+       alert("erour")
+    }else{
+
+       if(isvalid){
+        let objet = {
+           fullName : add_freelance_Form.elements.name.value,
+            photos : "../assets/images/profil1.jpg",
+           spécialisations : add_freelance_Form.elements.specialisations.value,
+          note : "(4.7)" ,
+          skils : add_freelance_Form.elements.skils.value,
+          amaunt : "40€/h"
+        }
+
+        ListFreeLence.push(objet)
+        console.log(ListFreeLence)
+        SaveData()
+        const staticBackdrop = document.getElementById('staticBackdrop')
+        staticBackdrop.style.display = "none"
+        AddListFreeLance()
+
+    }
+    }
+
+
+  })
+}
+
+validation()
+
+// --------------------------------------------
+// Modification du profil Freelance
+// --------------------------------------------
 
 
 // Ouvrir la modale avec les infos du freelance 
@@ -267,34 +263,6 @@ function saveFreelanceChanges() {
 
   alert("Profil mis a jour avec succes !");
 }
-
-// i charge les donnes
-async function fetshdata(file) {
-  let get_data = await fetch(file);
-  let xml = await get_data.text();
-  ListFreeLence = JSON.parse(xml);
-
-  //  ider verification  ila kano les doonnes f local storage
-  const stored = localStorage.getItem("freelancers");
-  if (stored) {
-    ListFreeLence = JSON.parse(stored);
-  }
-
-  AddListFreeLance();
-}
-
-// list des option 
-
-function optionslist(){
-
-  const option = ["Développeur Web","Designer","Rédacteur","Marketing"];
-  for(let i = 0 ; i < option.length ; i++){
-    const opt = document.createElement("option");
-    opt.textContent = option[i];
-    selectFiltre.appendChild(opt);
-  }
-}
-optionslist();
 
 function filter(){
    let listfilter ;
