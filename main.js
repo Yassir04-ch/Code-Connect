@@ -281,6 +281,35 @@ function saveFreelanceChanges() {
   alert("Profil mis a jour avec succes !");
 }
 
+
+// i charge les donnes
+async function fetshdata(file) {
+  let get_data = await fetch(file);
+  let xml = await get_data.text();
+  ListFreeLence = JSON.parse(xml);
+
+  //  ider verification  ila kano les doonnes f local storage
+  const stored = localStorage.getItem("freelancers");
+  if (stored) {
+    ListFreeLence = JSON.parse(stored);
+  }
+
+  AddListFreeLance();
+}
+
+// list des option 
+
+function optionslist(){
+
+  const option = ["Développeur Web","Designer","Rédacteur","Marketing"];
+  for(let i = 0 ; i < option.length ; i++){
+    const opt = document.createElement("option");
+    opt.textContent = option[i];
+    selectFiltre.appendChild(opt);
+  }
+}
+optionslist();
+
 function filter(){
    let listfilter ;
   if(selectFiltre.value === "Toutes les spécialités"){
