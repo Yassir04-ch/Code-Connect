@@ -17,21 +17,28 @@ const submit = document.getElementById("submit")
 //-------------cart-profile-dom------
 const image_profil=document.getElementById('image_profil');
 
-const btn_voir = document.getElementsByClassName(".mouad");
+const btn_voir = document.getElementsByClassName("mouad");
 
 
 let ListFreeLence ;
 
 // ---------- Data Json ----------------
+async function fetshdata(file) {
+  let get_data = await fetch(file);
+  let xml = await get_data.text();
+  ListFreeLence = JSON.parse(xml);
 
-async function fetshdata(file){
-    let get_data = await fetch(file);
-    let xml = await get_data.text();
-    ListFreeLence = JSON.parse(xml);
+  //  ider verification  ila kano les doonnes f local storage
+  const stored = localStorage.getItem("freelancers");
+  if (stored) {
+    ListFreeLence = JSON.parse(stored);
+  }
+
+  AddListFreeLance();
 }
 
 function copyData(){
-  ListFreeLence = fetshdata('/services/data.json');
+  ListFreeLence = fetshdata('../services/data.json');
 }
 
 // ------------- header ----------------
@@ -42,7 +49,7 @@ async function fetsh_header(file){
 
 }
 
-fetsh_header('/components/header.html');
+fetsh_header('../components/header.html');
 
 // ---------------- localStorage -------------------
 function getData(){
@@ -115,7 +122,7 @@ async function fetshmission(file){
     AddListmission();
 }
 
-fetshmission('/services/mission.json');
+fetshmission('../services/mission.json');
 
 function AddListmission(){
 
@@ -191,7 +198,7 @@ function validation(){
         let objet = {
            fullName : add_freelance_Form.elements.name.value,
             photos : "../assets/images/profil1.jpg",
-           spécialisations : add_freelance_Form.elements.specialisations.value,
+           spécialisations : add_freelance_Form.elements.spécialisations.value,
           note : "(4.7)" ,
           skils : add_freelance_Form.elements.skils.value,
           amaunt : "40€/h"
@@ -199,7 +206,7 @@ function validation(){
 
         ListFreeLence.push(objet)
         console.log(ListFreeLence)
-        SaveData()
+        setData()
         const staticBackdrop = document.getElementById('staticBackdrop')
         staticBackdrop.style.display = "none"
         AddListFreeLance()
@@ -283,19 +290,6 @@ function saveFreelanceChanges() {
 
 
 // i charge les donnes
-async function fetshdata(file) {
-  let get_data = await fetch(file);
-  let xml = await get_data.text();
-  ListFreeLence = JSON.parse(xml);
-
-  //  ider verification  ila kano les doonnes f local storage
-  const stored = localStorage.getItem("freelancers");
-  if (stored) {
-    ListFreeLence = JSON.parse(stored);
-  }
-
-  AddListFreeLance();
-}
 
 // list des option 
 
