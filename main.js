@@ -1,3 +1,4 @@
+
 // ------- DOM Freelances --------------------
 const btn_freelance = document.getElementById("btn_freelance");
 const Carte = document.getElementById("Carte"); 
@@ -10,6 +11,14 @@ const div_row = document.getElementById("div_row")
 const header = document.getElementById("header")
 const selectFiltre = document.getElementById("filtre");
 
+const add_freelance_Form = document.forms['add_freelance'];
+const submit = document.getElementById("submit")
+
+//-------------cart-profile-dom------
+const image_profil=document.getElementById('image_profil');
+
+const btn_voir = document.getElementsByClassName(".mouad");
+
 
 let ListFreeLence ;
 
@@ -19,10 +28,11 @@ async function fetshdata(file){
     let get_data = await fetch(file);
     let xml = await get_data.text();
     ListFreeLence = JSON.parse(xml);
-
-    AddListFreeLance();
 }
-fetshdata('/services/data.json');
+
+function copyData(){
+  ListFreeLence = fetshdata('/services/data.json');
+}
 
 // ------------- header ----------------
 async function fetsh_header(file){
@@ -34,13 +44,28 @@ async function fetsh_header(file){
 
 fetsh_header('/components/header.html');
 
+// ---------------- localStorage -------------------
+function getData(){
+  ListFreeLence = JSON.parse(localStorage.getItem('data_freelance')) || [];
+}
+
+function setData(){
+  localStorage.setItem('data_freelance',ListFreeLence);
+}
+
+if(localStorage.getItem('data_freelance')){
+  getData()
+  AddListFreeLance()
+}else{
+  copyData()
+}
+
 // --------------- Card -------------------
 
 
-
+// import {nameRegex , skillRegex , amountRegex ,regex} from './utils/Rejex'
 
 // ---------functions ----------------
-
 
 function AddListFreeLance(liste = ListFreeLence){
 
@@ -62,25 +87,56 @@ function AddListFreeLance(liste = ListFreeLence){
           </div>
           <div class="card-footer bg-transparent d-flex justify-content-between">
             <small id="amuont_freeLance" class="text-muted">${element.amaunt}</small>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#profilModal">Voir</button>
+            <button type="button" class="btn btn-primary mouad" data-bs-toggle="modal" data-bs-target="#affich_prf" >Voir</button>
           </div>
         </div>
-      </div>` 
+      </div> `
 
       div_row.innerHTML += card
+
+    });
+
+}
+
+// --------------- Card-porfile -------------------
+
+
+ 
+
+ 
+//----------------card-mission-----------------
+const div_misson = document.getElementById("card_mission")
+let mission ;
+async function fetshmission(file){
+    let get_data = await fetch(file);
+    let xml = await get_data.text();
+    mission = JSON.parse(xml);
+
+    AddListmission();
+}
+
+fetshmission('/services/mission.json');
+
+function AddListmission(){
+
+    mission.forEach(mouad => {
+
+         let card_1 = `<div class="col-md-4">
+        <div class="card mission-card p-3"><h5 class="card-title">${mouad.thework}</h5>
+          <p class="text-muted mb-2">${mouad.prix_time}</p>
+          <p>${mouad.deteils}</p>
+          <a href="#" class="btn btn-primary">details</a>
+        </div>
+      </div>`
+
+      div_misson.innerHTML += card_1
         
     });
 
 }
 
 
-// add des  options 
-
-
-
-// ---------------- filter -----------------------
-
-
+ 
 //formula by regex validation
 
 //function regex validation
@@ -101,6 +157,65 @@ const inputAmount = document.getElementById("freelanceAmount");
 const inputPhoto = document.getElementById("freelancePhoto");
 
 let selectedFreelancerIndex = null;
+
+
+// ----------------- RegEx -----------------
+
+
+// import {nameRegex , skillRegex , amountRegex ,regex} from './utils/Rejex.js';
+
+// --------------- validation -------------------
+
+function validation(){
+  submit.addEventListener("click",(e)=>{
+    e.preventDefault()
+    
+    const Names = ["name","email","password","skils","specialisations"]
+    let isvalid = true;
+    Names.forEach(ele =>{
+      let valid_name = add_freelance_Form.elements[ele];
+      valid_name.style.border = '#ccc solid 1px'
+      if(valid_name.value.trim() == ''){
+        valid_name.style.border = 'red solid 1px'
+        isvalid = false
+      }
+
+    })
+
+
+    if(regex()){
+       alert("erour")
+    }else{
+
+       if(isvalid){
+        let objet = {
+           fullName : add_freelance_Form.elements.name.value,
+            photos : "../assets/images/profil1.jpg",
+           spécialisations : add_freelance_Form.elements.specialisations.value,
+          note : "(4.7)" ,
+          skils : add_freelance_Form.elements.skils.value,
+          amaunt : "40€/h"
+        }
+
+        ListFreeLence.push(objet)
+        console.log(ListFreeLence)
+        SaveData()
+        const staticBackdrop = document.getElementById('staticBackdrop')
+        staticBackdrop.style.display = "none"
+        AddListFreeLance()
+
+    }
+    }
+
+
+  })
+}
+
+validation()
+
+// --------------------------------------------
+// Modification du profil Freelance
+// --------------------------------------------
 
 
 // Ouvrir la modale avec les infos du freelance 
@@ -165,34 +280,6 @@ function saveFreelanceChanges() {
 
   alert("Profil mis a jour avec succes !");
 }
-
-// i charge les donnes
-async function fetshdata(file) {
-  let get_data = await fetch(file);
-  let xml = await get_data.text();
-  ListFreeLence = JSON.parse(xml);
-
-  //  ider verification  ila kano les doonnes f local storage
-  const stored = localStorage.getItem("freelancers");
-  if (stored) {
-    ListFreeLence = JSON.parse(stored);
-  }
-
-  AddListFreeLance();
-}
-
-// list des option 
-
-function optionslist(){
-
-  const option = ["Développeur Web","Designer","Rédacteur","Marketing"];
-  for(let i = 0 ; i < option.length ; i++){
-    const opt = document.createElement("option");
-    opt.textContent = option[i];
-    selectFiltre.appendChild(opt);
-  }
-}
-optionslist();
 
 function filter(){
    let listfilter ;
