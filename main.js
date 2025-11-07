@@ -28,10 +28,11 @@ async function fetshdata(file){
     let get_data = await fetch(file);
     let xml = await get_data.text();
     ListFreeLence = JSON.parse(xml);
-
-    AddListFreeLance();
 }
-fetshdata('/services/data.json');
+
+function copyData(){
+  ListFreeLence = fetshdata('/services/data.json');
+}
 
 // ------------- header ----------------
 async function fetsh_header(file){
@@ -43,10 +44,26 @@ async function fetsh_header(file){
 
 fetsh_header('/components/header.html');
 
+// ---------------- localStorage -------------------
+function getData(){
+  ListFreeLence = JSON.parse(localStorage.getItem('data_freelance')) || [];
+}
+
+function setData(){
+  localStorage.setItem('data_freelance',ListFreeLence);
+}
+
+if(localStorage.getItem('data_freelance')){
+  getData()
+  AddListFreeLance()
+}else{
+  copyData()
+}
+
 // --------------- Card -------------------
 
 
-
+// import {nameRegex , skillRegex , amountRegex ,regex} from './utils/Rejex'
 
 // ---------functions ----------------
 
