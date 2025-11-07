@@ -28,6 +28,7 @@ async function fetshdata(file){
     let get_data = await fetch(file);
     let xml = await get_data.text();
     ListFreeLence = JSON.parse(xml);
+    AddListFreeLance()
 }
 
 function copyData(){
@@ -67,10 +68,10 @@ if(localStorage.getItem('data_freelance')){
 
 // ---------functions ----------------
 
-function AddListFreeLance(liste = ListFreeLence){
+function AddListFreeLance(){
 
    div_row.innerHTML = "";
-    liste.forEach(element => {
+    ListFreeLence.forEach(element => {
 
          let card = `<div class="col-md-4">
         <div id = "Carte" class="card h-100 shadow-sm">
@@ -199,7 +200,7 @@ function validation(){
 
         ListFreeLence.push(objet)
         console.log(ListFreeLence)
-        SaveData()
+        setData()
         const staticBackdrop = document.getElementById('staticBackdrop')
         staticBackdrop.style.display = "none"
         AddListFreeLance()
