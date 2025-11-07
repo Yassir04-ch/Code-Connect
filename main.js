@@ -10,7 +10,6 @@ const div_row = document.getElementById("div_row")
 const header = document.getElementById("header")
 const selectFiltre = document.getElementById("filtre");
 
-
 let ListFreeLence ;
 
 // ---------- Data Json ----------------
@@ -152,7 +151,7 @@ function saveFreelanceChanges() {
   const amountRegex = /^[0-9]{1,3}$/;
 
   if (!nameRegex.test(name)) {
-    alert("Nom invalide (3 à 40 lettres)");
+    alert("Nom invalide (3 a 40 lettres)");
     return;
   }
 
