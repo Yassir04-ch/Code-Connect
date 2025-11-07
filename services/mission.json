@@ -1,0 +1,25 @@
+[
+      {
+        "thework":"Web Developer Needed",
+        "prix_time":"Budget: $500 - Duration: 2 weeks",
+        "deteils":"Need a creative designer to make a minimalist logo for a startup brand."
+    }
+      ,
+    {
+        "thework":"Logo Design Project",
+        "prix_time":"Budget: $150 - Duration: 3 days",
+        "deteils":"Need a creative designer to make a minimalist logo for a startup brand."
+    } ,
+    {
+        "thework":"Mobile App Testing",
+        "prix_time":"Budget: $200 - Duration: 1 week",
+        "deteils":"Test and report bugs for our beta Android application before official release."
+    } 
+     ,
+    {
+        "thework":"Mobile App Testing",
+        "prix_time":"Budget: $200 - Duration: 1 week",
+        "deteils":"Test and report bugs for our beta Android application before official release."
+    }
+
+]
