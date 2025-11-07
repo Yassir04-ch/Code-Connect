@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
 <!-- header  -->
 <header id="header" class="bg-white shadow-sm">
 
@@ -25,10 +24,7 @@
     <div class="col-md-4 text-md-end">
       <select id="filtre" class="form-select">
         <option selected>Toutes les spécialités</option>
-        <option>Développeur Web</option>
-        <option>Designer</option>
-        <option>Rédacteur</option>
-        <option>Marketing</option>
+        
       </select>
     </div>
   </div>
@@ -136,6 +132,50 @@
   </div>
 </div>
 
+<!-- profile -->
+  <div class="modal fade" id="affich_prf" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Profil</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="  container ">
+            <img src="/assets/download (10).jpg" alt="Mouad" id="" class="img-thumbnail avatar mt-2 mb-3 ">
+
+            <h4 class="mb-0 col">Mouad El Amrani</h4>
+            <div class="small-muted mb-2 col">Full-Stack Web & Mobile Developer</div>
+            <p class="service-rate col">25 EUR / heure</p>
+          </div>
+          <div>
+            <h5 class="mb-1">À propos</h5>
+            <p class="small-muted mb-2">
+              Développeur full-stack avec 3 ans d'expérience, spécialisé en JavaScript, React, Node.js et Flutter.
+              J'aime construire des interfaces propres et des APIs performantes.
+            </p>
+          </div>
+
+          <div class="mb-3">
+            <h6 class="mb-2">Compétences</h6>
+            <div>
+              <span class="badge bg-primary skill-badge">JavaScript — expert (4 ans)</span>
+              <span class="badge bg-primary skill-badge">React — advanced (3 ans)</span>
+              <span class="badge bg-primary skill-badge">Node.js — advanced (3 ans)</span>
+              <span class="badge bg-primary skill-badge">Flutter — intermediate (2 ans)</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">modification </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script type="module" src="../main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
