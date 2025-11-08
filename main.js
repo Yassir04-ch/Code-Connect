@@ -19,7 +19,9 @@ const image_profil=document.getElementById('image_profil');
 
 const btn_voir = document.getElementsByClassName("mouad");
 
+// ---------------- DOM mession --------------------
 
+// ----------- Array ----------
 let ListFreeLence ;
 
 // ---------- Data Json ----------------
@@ -40,6 +42,7 @@ async function fetshdata(file) {
  function copyData(){
   ListFreeLence = fetshdata('../services/data.json');
 }
+
 
 // ------------- header ----------------
 async function fetsh_header(file){
@@ -76,9 +79,9 @@ if(localStorage.getItem('freelancers')){
 
 function AddListFreeLance(){
 
+
    div_row.innerHTML = "";
     ListFreeLence.forEach(element => {
-
          let card = `<div class="col-md-4">
         <div id = "Carte" class="card h-100 shadow-sm">
           <div class="card-body d-flex gap-3">
@@ -161,7 +164,9 @@ fetshdata('../services/data.json').then(() => {
 //----------------card-mission-----------------
 const div_misson = document.getElementById("card_mission")
 let mission ;
-// add mission localStorage and json   
+
+
+// add mission localStorage and json 
 
 if(localStorage.getItem("missions")){
   mission = JSON.parse(localStorage.getItem("missions"))
@@ -210,6 +215,7 @@ const day = document.getElementById("day");
 const prix = document.getElementById("prix");
 const details = document.getElementById("details");
  const fortm = document.querySelector('#mouad_sr form')
+
 //  add border in input de form maisson 
 fortm.addEventListener("mouseover",function(){
   if(  job.value.trim() !== ''){
@@ -265,6 +271,7 @@ if(prix.value.trim()== ''){
         </div>
       </div>
     `;
+    
 // add newmaisson in localStorage
      mission.push(maisson);
      localStorage.setItem("missions", JSON.stringify(mission));
@@ -322,10 +329,6 @@ function validation(){
     })
 
 
-    if(regex()){
-       alert("erour")
-    }else{
-
        if(isvalid){
         let objet = {
            fullName : add_freelance_Form.elements.name.value,
@@ -337,14 +340,13 @@ function validation(){
         }
 
         ListFreeLence.push(objet)
-        console.log(ListFreeLence)
         setData()
-        const staticBackdrop = document.getElementById('staticBackdrop')
-        staticBackdrop.style.display = "none"
+        // ----------- hidden modul ----------
+        const staticBackdrop = bootstrap.Modal.getInstance(document.getElementById('staticBackdrop')) 
+        staticBackdrop.hide()
         AddListFreeLance()
 
-    }
-    }
+    } 
 
 
   })
