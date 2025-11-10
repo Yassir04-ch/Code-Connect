@@ -24,7 +24,7 @@ const btn_voir = document.getElementsByClassName(".mouad");
 
 let ListFreeLence ;
 
-// ---------- Data Json ----------------
+// Data Json 
 
 async function fetshdata(file){
     let get_data = await fetch(file);
@@ -37,17 +37,17 @@ function copyData(){
   ListFreeLence = fetshdata('/services/data.json');
 }
 
-// ------------- header ----------------
-async function fetsh_header(file){
+//  header 
+async function fetch_header(file){
     let get_data = await fetch(file);
     let xml = await get_data.text();
     header.innerHTML = xml;
 
 }
 
-fetsh_header('/components/header.html');
+fetch_header('/components/header.html');
 
-// ---------------- localStorage -------------------
+// localStorage
 function getData(){
   ListFreeLence = JSON.parse(localStorage.getItem('data_freelance')) || [];
 }
@@ -63,12 +63,10 @@ if(localStorage.getItem('data_freelance')){
   copyData()
 }
 
-// --------------- Card -------------------
-
 
 // import {nameRegex , skillRegex , amountRegex ,regex} from './utils/Rejex'
 
-// ---------functions ----------------
+// functions
 
 function AddListFreeLance(){
 
@@ -101,13 +99,13 @@ function AddListFreeLance(){
 
 }
 
-// --------------- Card-porfile -------------------
 
 
- 
 
  
-//----------------card-mission-----------------
+
+ 
+//mission
 const div_misson = document.getElementById("card_mission")
 let mission ;
 async function fetshmission(file){
@@ -143,20 +141,20 @@ function AddListmission(){
 //formula by regex validation
 
 //function regex validation
-// --------------------------------------------
+
 // Modification du profil Freelance
-// --------------------------------------------
+
 
 // Selecteur dial DOM  le formulaire dans la modale
 
 
 
-// ----------------- RegEx -----------------
+//  RegEx 
 
 
 // import {nameRegex , skillRegex , amountRegex ,regex} from './utils/Rejex.js';
 
-// --------------- validation -------------------
+//  validation 
 
 function validation(){
   submit.addEventListener("click",(e)=>{
@@ -205,9 +203,9 @@ function validation(){
 
 validation()
 
-// --------------------------------------------
+
 // Modification du profil Freelance
-// --------------------------------------------
+
 
 
 // Ouvrir la modale avec les infos du freelance 
@@ -249,6 +247,7 @@ function saveFreelanceChanges() {
     alert("Montant invalide");
     return;
   }
+  console.log(animals.slice(2, 4));
 
   // Mise a jour de donnees dakhel dial array
   ListFreeLence[selectedFreelancerIndex] = {
@@ -256,6 +255,7 @@ function saveFreelanceChanges() {
     fullName: name,
     skils: skill,
     spécialisations: specialisation,
+    am
     amaunt: `${amount}€/h`,
     photos: photo || ListFreeLence[selectedFreelancerIndex].photos
   };
@@ -305,7 +305,7 @@ function copyData(){
   ListFreeLence = fetshdata('/services/data.json');
 }
 
-// ------------- header ----------------
+// header 
 async function fetsh_header(file){
     let get_data = await fetch(file);
     let xml = await get_data.text();
@@ -314,7 +314,7 @@ async function fetsh_header(file){
 
 fetsh_header('/components/header.html');
 
-// ---------------- localStorage -------------------
+//  localStorage 
 function getData(){
   ListFreeLence = JSON.parse(localStorage.getItem('data_freelance')) || [];
 }
@@ -330,7 +330,7 @@ if(localStorage.getItem('data_freelance')){
   copyData()
 }
 
-// ---------functions ----------------
+// functions 
 function AddListFreeLance(){
    div_row.innerHTML = "";
     ListFreeLence.forEach(element => {
@@ -358,7 +358,7 @@ function AddListFreeLance(){
     });
 }
 
-// ---------------- Missions -----------------
+// Missions
 
 async function fetshmission(file){
     let get_data = await fetch(file);
@@ -382,9 +382,9 @@ function AddListmission(){
     });
 }
 
-// --------------------------------------------
+
 // Modification du profil Freelance
-// --------------------------------------------
+
 const modal = document.getElementById("staticBackdrop");
 const modalTitle = document.getElementById("staticBackdropLabel");
 const form = modal ? modal.querySelector("form") : null;
@@ -468,7 +468,7 @@ function saveFreelanceChanges() {
 }
 
 
-// SECTION OUGHLANE - SERVICES
+// 4userstorie OUGHLANE =functions dial service page services
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -494,18 +494,15 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-const res = await fetch("./services/services.json");
+//njib data bach ntesti  error
 
       const data = await res.json();
-      servicesList = data;
+      const res = await fetch("./services/services.json)
+        
+      
       filteredServices = [...servicesList];
       localStorage.setItem(LS_KEY, JSON.stringify(servicesList));
       renderServices(filteredServices);
-    } catch (err) {
-      console.error("Erreur :", err);
-      servicesContainer.innerHTML = `<p class="text-danger text-center">Impossible de charger les services.</p>`;
-    }
-  }
 
   function renderServices(list) {
     servicesContainer.innerHTML = "";
@@ -514,14 +511,14 @@ const res = await fetch("./services/services.json");
       return;
     }
 
-    list.forEach((svc, index) => {
+    list.forEach((s, index) => {
       const card = template.content.cloneNode(true);
       card.querySelector("img").src = svc.image || "../assets/images/default-service.jpg";
-      card.querySelector(".card-title").textContent = svc.title;
+      card.querySelector(".card-title").textContent = s.title;
       card.querySelector(".card-text").textContent = `Freelance: ${svc.freelancer} — Spécialité: ${svc.category}`;
-      card.querySelector(".service-price").textContent = `${svc.price} DH`;
-      card.querySelector(".service-time").textContent = `${svc.time} jours`;
-      card.querySelector(".description").textContent = svc.description;
+      card.querySelector(".service-price").textContent = `${s.price} DH`;
+      card.querySelector(".service-time").textContent = `${s.time} jours`;
+      card.querySelector(".description").textContent = s.description;
 
       card.querySelector("[data-action='view']").addEventListener("click", () => viewService(svc));
       card.querySelector("[data-action='edit']").addEventListener("click", () => editService(index));
@@ -561,7 +558,7 @@ const res = await fetch("./services/services.json");
   addServiceBtn.addEventListener("click", () => {
     serviceForm.reset();
     serviceForm.dataset.mode = "add";
-    alert("🟢 Remplissez le formulaire pour ajouter un service !");
+    alert("Remplissez le formulaire pour ajouter un service !");
   });
 
   serviceForm.addEventListener("submit", (e) => {
@@ -580,18 +577,18 @@ const res = await fetch("./services/services.json");
     };
 
     if (!newService.title || !newService.description) {
-      alert("⚠️ Champs obligatoires manquants !");
+      alert("Champs obligatoires manquants !");
       return;
     }
 
     if (serviceForm.dataset.mode === "edit") {
       const index = serviceForm.dataset.index;
       servicesList[index] = newService;
-      alert("✏️ Service modifié avec succès !");
+      alert(" Service modifie avec succees !");
       serviceForm.dataset.mode = "add";
     } else {
       servicesList.push(newService);
-      alert("✅ Service ajouté avec succès !");
+      alert("Service ajouté avec succees !");
     }
 
     localStorage.setItem(LS_KEY, JSON.stringify(servicesList));
@@ -600,12 +597,12 @@ const res = await fetch("./services/services.json");
   });
 
   function editService(index) {
-    const svc = servicesList[index];
-    serviceForm.title.value = svc.title;
-    serviceForm.description.value = svc.description;
-    serviceForm.price.value = svc.price;
-    serviceForm.time.value = svc.time;
-    serviceForm.category.value = svc.category;
+    const s = servicesList[index];
+    serviceForm.title.value = s.title;
+    serviceForm.description.value = s.description;
+    serviceForm.price.value = s.price;
+    serviceForm.time.value =s.time;
+    serviceForm.category.value = s.category;
 
     serviceForm.dataset.mode = "edit";
     serviceForm.dataset.index = index;
@@ -613,14 +610,18 @@ const res = await fetch("./services/services.json");
   }
 
   function deleteService(index) {
-    if (!confirm("Supprimer ce service ?")) return;
+   
+    if (confirm("tu va supprimmer ce service")) 
+      return;
     servicesList.splice(index, 1);
-    localStorage.setItem(LS_KEY, JSON.stringify(servicesList));
+    
+    }
     renderServices(servicesList);
   }
+  services
 
-  function viewService(svc) {
-    alert(`📦 ${svc.title}\n\n${svc.description}\nPrix : ${svc.price} DH\nDurée : ${svc.time} jours\nFreelance : ${svc.freelancer}`);
+  function viewService(s) {
+    alert(` ${s.title}\n\n${s.description}\nPrix : ${s.price} DH\nDurée : ${s.time} jours\nFreelance : ${s.freelancer}`);
   }
 
   fetchServicesData();
