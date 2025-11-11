@@ -425,3 +425,57 @@ function saveFreelanceChanges() {
 
 // i charge les donnes
 
+// page avis 
+
+const container = document.getElementById("avis-container");
+// avis json 
+ let avis ;
+ async function fetchavis(file) {
+  let get_data = await fetch(file)
+  let av = await get_data.text()
+  avis = JSON.parse(av);
+   const stored = localStorage.getItem("avisData");
+  if (stored) {
+    avis = JSON.parse(stored);
+  }
+
+   afficheavis();
+ }
+
+ function afficheavis(){
+    container.innerHTML = "";
+    avis.forEach((ya,index)=> {
+        container.innerHTML += ` 
+         <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title mb-0">${ya.client}</h5>
+            <p class="text-muted small mb-1">Client de : <strong>${ya.freelance}</strong></p>
+            <p> ${ya.commentaire} Je recommande à ${ya.note}</p>
+            <p>Reponse de freelance: ${ya.reponce}</p>
+          </div>
+             <textarea placeholder="entrer la reponce" data-index="${index}"></textarea>
+             <button class="btn_rep" data-index="${index}"  style="background: #5fc4e8ff">Envoyer</button>
+        </div>`
+    })
+ 
+const form = document.querySelectorAll("form")
+ const btn_rep = document.querySelectorAll(".btn_rep");
+ btn_rep.forEach(btn => {
+    btn.addEventListener("click",function(){
+        const idx = this.dataset.index
+        const text = this.previousElementSibling
+        if(text.value.trim() ===""){
+            alert("ecrire la reponce")
+            return;
+        }
+        avis[idx].reponce = text.value.trim()
+        localStorage.setItem("avisData",JSON.stringify(avis))
+
+        afficheavis();
+
+    })
+ })
+  
+ }
+ fetchavis("../services/avis.json")
+  
