@@ -172,7 +172,7 @@ const container = document.getElementById("avis-container");
   let get_data = await fetch(file)
   let av = await get_data.text()
   avis = JSON.parse(av);
-   const stored = localStorage.getItem("avisData");
+   const stored = localStorage.getItem("avisdata");
   if (stored) {
     avis = JSON.parse(stored);
   }
@@ -209,7 +209,7 @@ const form = document.querySelectorAll("form")
             return;
         }
         avis[idx].reponce = text.value.trim()
-        localStorage.setItem("avisData",JSON.stringify(avis))
+        localStorage.setItem("avisdata",JSON.stringify(avis))
 
         afficheavis();
 
@@ -338,6 +338,7 @@ if(prix.value.trim()== ''){
     document.querySelector('#mouad_sr form').reset(); 
 
 })
+
 
 
 
