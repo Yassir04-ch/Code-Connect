@@ -166,13 +166,15 @@ fetshdata('../services/data.json').then(() => {
 // -----------page avis----------------
 
 const container = document.getElementById("avis-container");
+if (container) {
 //data json avis 
+
  let avis ;
  async function fetchavis(file) {
   let get_data = await fetch(file)
   let av = await get_data.text()
   avis = JSON.parse(av);
-   const stored = localStorage.getItem("avisdata");
+   const stored = localStorage.getItem("avisloca");
   if (stored) {
     avis = JSON.parse(stored);
   }
@@ -198,7 +200,6 @@ const container = document.getElementById("avis-container");
         </div>`
     })
  
-const form = document.querySelectorAll("form")
  const btn_rep = document.querySelectorAll(".btn_rep");
  btn_rep.forEach(btn => {
     btn.addEventListener("click",function(){
@@ -209,7 +210,7 @@ const form = document.querySelectorAll("form")
             return;
         }
         avis[idx].reponce = text.value.trim()
-        localStorage.setItem("avisdata",JSON.stringify(avis))
+        localStorage.setItem("avisloca",JSON.stringify(avis))
 
         afficheavis();
 
@@ -217,11 +218,35 @@ const form = document.querySelectorAll("form")
  })
   
  }
+//  function ajoutnewavis 
+
+  const nclient = document.getElementById("fullname")
+  const nfreel = document.getElementById("nfreel")
+  const commentaire = document.getElementById("commentaire")
+  const note = document.getElementById("note")
+  const btn_avis = document.getElementById("btn-avis")
    
- 
+btn_avis.addEventListener("click",function(){
+
+
+  const avi = {
+    client:nclient.value,
+    freelance:nfreel.value,
+    note:note.value,
+    commentaire:commentaire.value,
+    reponce:""
+  }
+   avis.push(avi);
+   localStorage.getItem("avisloca",JSON.stringify(avis));
+  
+   afficheavis();
+  document.querySelector("#yassir form").reset();
+})
+}
 
 //----------------card-mission-----------------
 const div_misson = document.getElementById("card_mission")
+
 let mission ;
 
 
@@ -263,8 +288,8 @@ function AddListmission(){
       div_misson.innerHTML += card_1
         
     });
+  }
 
-}
 
 // form add maisson 
 
@@ -293,6 +318,7 @@ fortm.addEventListener("mouseover",function(){
 
 // function de Newmaisson
 
+
 send.addEventListener("click",function(){
 
 // validation de form maisson 
@@ -320,8 +346,7 @@ if(prix.value.trim()== ''){
     deteils: details.value
   }
 
-  const card = document.getElementById("card_mission")
-  card.innerHTML +=`<div class = "col-md-4">
+  div_misson.innerHTML +=`<div class = "col-md-4">
    <div class="card mission-card p-3">
         <h5 class="card-title">${maisson.thework}</h5>
           <p class="text-muted mb-2">${maisson.prix_time}</p>
@@ -338,6 +363,8 @@ if(prix.value.trim()== ''){
     document.querySelector('#mouad_sr form').reset(); 
 
 })
+
+
 
 
 
