@@ -153,11 +153,13 @@ function filter(){
   }
 } 
 
-// bach matkhdamch fuction filter tatkmal t7mil ga3 data 7it kan kaytra error f lawal omakaykhdamch lkod 
-fetshdata('../services/data.json').then(() => {
-  optionslist();
-  selectFiltre.addEventListener("change", filter);
-});
+// function attant limakatkhalich filter o optionslist ykhadmo tatsali fetshdata
+async function attant() {
+  await fetshdata('../services/data.json'); // ⏳ تسنّى حتى تسالي fetshdata
+  optionslist(); // ✅ من بعد، نعرض اللائحة
+  selectFiltre.addEventListener("change", filter); // 🎛️ نربط الحدث ديال change
+}
+attant(); 
 
 
 
