@@ -158,11 +158,130 @@ fetshdata('../services/data.json').then(() => {
   optionslist();
   selectFiltre.addEventListener("change", filter);
 });
+
+
+
+
+
+// -----------page avis----------------
+
+const container = document.getElementById("avis-container");
+if (container) {
+//data json avis 
+
+ let avis ;
+ async function fetchavis(file) {
+  let get_data = await fetch(file)
+  let av = await get_data.text()
+  avis = JSON.parse(av);
+   const stored = localStorage.getItem("avisloca");
+  if (stored) {
+    avis = JSON.parse(stored);
+  }
+
+   afficheavis();
+ }
+
+ fetchavis("../services/avis.json")
+
+ function afficheavis(){
+    container.innerHTML = "";
+    avis.forEach((ya,index)=> {
+        container.innerHTML += ` 
+         <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title mb-0">${ya.client}</h5>
+            <p class="text-muted small mb-1">Client de : <strong>${ya.freelance}</strong></p>
+            <p> ${ya.commentaire} Je recommande à ${ya.note}</p>
+            <p>Reponse de freelance: ${ya.reponce}</p>
+          </div>
+             <textarea placeholder="entrer la reponce" data-index="${index}"></textarea>
+             <button class="btn_rep" data-index="${index}"  style="background: #2784feff ; color:white">Envoyer</button>
+        </div>`
+    })
  
- 
+ const btn_rep = document.querySelectorAll(".btn_rep");
+ btn_rep.forEach(btn => {
+    btn.addEventListener("click",function(){
+        const idx = this.dataset.index
+        const text = this.previousElementSibling
+        if(text.value.trim() ===""){
+            alert("ecrire la reponce")
+            return;
+        }
+        avis[idx].reponce = text.value.trim()
+        localStorage.setItem("avisloca",JSON.stringify(avis))
+
+        afficheavis();
+
+    })
+ })
+  
+ }
+//  function ajoutnewavis 
+
+  const nclient = document.getElementById("fullname")
+  const nfreel = document.getElementById("nfreel")
+  const commentaire = document.getElementById("commentaire")
+  const note = document.getElementById("note")
+  const btn_avis = document.getElementById("btn-avis")
+   document.querySelector("#yassir form").addEventListener("mouseover",function(){
+  if(nclient.value.trim()!= ''){
+  nclient.style.border = "2px solid green"
+}
+if(nfreel.value.trim()!= ''){
+  nfreel.style.border = "2px solid green"
+}
+if(commentaire.value.trim()!= ''){
+  commentaire.style.border = "2px solid green"
+}
+if(note.value.trim()!= ''){
+  note.style.border = "2px solid green"
+}
+})
+
+
+btn_avis.addEventListener("click",function(){
+if(nclient.value.trim()== ''){
+  nclient.style.border = "2px solid red"
+  alert("entrer le nom")
+  return;
+}
+if(nfreel.value.trim()== ''){
+  nfreel.style.border = "2px solid red"
+  alert("entrer le nom de freelance")
+  return;
+}
+if(commentaire.value.trim()== ''){
+  commentaire.style.border = "2px solid red"
+  alert("entrer le commentaire")
+  return
+}
+if(note.value.trim()== ''){
+  note.style.border = "2px solid red"
+  alert("entrer le note")
+  return;
+}
+
+  const avi = {
+    client:nclient.value,
+    freelance:nfreel.value,
+    note:note.value,
+    commentaire:commentaire.value,
+    reponce:""
+  }
+   avis.push(avi);
+   localStorage.getItem("avisloca",JSON.stringify(avis));
+  
+   afficheavis();
+  document.querySelector("#yassir form").reset();
+
+})
+}
 
 //----------------card-mission-----------------
 const div_misson = document.getElementById("card_mission")
+
 let mission ;
 
 
@@ -204,8 +323,8 @@ function AddListmission(){
       div_misson.innerHTML += card_1
         
     });
+  }
 
-}
 
 // form add maisson 
 
@@ -234,24 +353,25 @@ fortm.addEventListener("mouseover",function(){
 
 // function de Newmaisson
 
+
 send.addEventListener("click",function(){
 
 // validation de form maisson 
 
 if(job.value.trim()== ''){
-  job.style.border = "1px solid red"
+  job.style.border = "2px solid red"
   return;
 }
 if(details.value.trim()== ''){
-  details.style.border = "1px solid red"
+  details.style.border = "2px solid red"
   return;
 }
 if(day.value.trim()== ''){
-  day.style.border = "1px solid red"
+  day.style.border = "2px solid red"
   return
 }
 if(prix.value.trim()== ''){
-  prix.style.border = "1px solid red"
+  prix.style.border = "2px solid red"
   return;
 }
 
@@ -261,8 +381,7 @@ if(prix.value.trim()== ''){
     deteils: details.value
   }
 
-  const card = document.getElementById("card_mission")
-  card.innerHTML +=`<div class = "col-md-4">
+  div_misson.innerHTML +=`<div class = "col-md-4">
    <div class="card mission-card p-3">
         <h5 class="card-title">${maisson.thework}</h5>
           <p class="text-muted mb-2">${maisson.prix_time}</p>
@@ -279,6 +398,9 @@ if(prix.value.trim()== ''){
     document.querySelector('#mouad_sr form').reset(); 
 
 })
+
+
+
 
 
 

@@ -8,6 +8,7 @@
 </head>
 <body class="bg-light">
 
+<div id="header"></div>
 
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -25,60 +26,55 @@
     <h1 class="text-center mb-4">Avis & Témoignages</h1>
 
     <!-- Liste des avis -->
-    <div class="row" id="avisContainer">
+    
+      <div id="avis-container" class=" row g-4">
 
-      <!-- Exemple d’avis -->
-      <div class="col-md-6 mb-4">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title mb-0">Sophie Martin</h5>
-            <p class="text-muted small mb-1">Client de : <strong>Marie Lefèvre</strong></p>
-            <div class="text-warning mb-2">★★★★★</div>
-            <p>Marie a fait un excellent travail sur la refonte de mon site. Je recommande à 100 % !</p>
-          </div>
-          <div class="card-footer bg-light">
-            <strong>Réponse du freelance :</strong>
-            <p class="mb-0">Merci Sophie ! J’ai adoré collaborer avec vous 😊</p>
-          </div>
-        </div>
+
       </div>
-
-      <!-- Avis sans réponse -->
-      <div class="col-md-6 mb-4">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title mb-0">Youssef Amrani</h5>
-            <p class="text-muted small mb-1">Client de : <strong>Karim Dev</strong></p>
-            <div class="text-warning mb-2">★★★★☆</div>
-            <p>Bon travail, mais le délai aurait pu être un peu plus court.</p>
-          </div>
-          <div class="card-footer">
-            <form>
-              <div class="mb-2">
-                <textarea class="form-control" rows="2" placeholder="Répondez à cet avis..."></textarea>
-              </div>
-              <button class="btn btn-primary btn-sm">Envoyer</button>
-            </form>
-          </div>
-        </div>
+    </div>
+  <!-- add avis  -->
+   <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#yassir">
+    posting
+  </button>
+<div class="modal fade" id="yassir">  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">nom et prénom :</label>
+            <input type="text" class="form-control" id="fullname">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">nom de Freelancer:</label>
+            <input type="text" class="form-control" id="nfreel">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">commentaire</label>
+            <textarea class="form-control" id="commentaire"></textarea> 
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">note on  :</label>
+           <input type="text" placeholder="100%" class="form-control" id="note">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="btn-avis" type="button" class="btn btn-primary">pustulai avis</button>
+      </div>
     </div>
   </div>
+</div>
 
   <!-- FOOTER -->
-
   <footer class="text-center py-3 bg-dark text-light">
     © 2025 FreelanceLink
   </footer>
-
+  <script src="../main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  
-
-
-  
-
-
 </body>
 </html>
