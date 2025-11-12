@@ -196,7 +196,7 @@ if (container) {
             <p>Reponse de freelance: ${ya.reponce}</p>
           </div>
              <textarea placeholder="entrer la reponce" data-index="${index}"></textarea>
-             <button class="btn_rep" data-index="${index}"  style="background: #5fc4e8ff">Envoyer</button>
+             <button class="btn_rep" data-index="${index}"  style="background: #2784feff ; color:white">Envoyer</button>
         </div>`
     })
  
@@ -225,9 +225,43 @@ if (container) {
   const commentaire = document.getElementById("commentaire")
   const note = document.getElementById("note")
   const btn_avis = document.getElementById("btn-avis")
-   
-btn_avis.addEventListener("click",function(){
+   document.querySelector("#yassir form").addEventListener("mouseover",function(){
+  if(nclient.value.trim()!= ''){
+  nclient.style.border = "2px solid green"
+}
+if(nfreel.value.trim()!= ''){
+  nfreel.style.border = "2px solid green"
+}
+if(commentaire.value.trim()!= ''){
+  commentaire.style.border = "2px solid green"
+}
+if(note.value.trim()!= ''){
+  note.style.border = "2px solid green"
+}
+})
 
+
+btn_avis.addEventListener("click",function(){
+if(nclient.value.trim()== ''){
+  nclient.style.border = "2px solid red"
+  alert("entrer le nom")
+  return;
+}
+if(nfreel.value.trim()== ''){
+  nfreel.style.border = "2px solid red"
+  alert("entrer le nom de freelance")
+  return;
+}
+if(commentaire.value.trim()== ''){
+  commentaire.style.border = "2px solid red"
+  alert("entrer le commentaire")
+  return
+}
+if(note.value.trim()== ''){
+  note.style.border = "2px solid red"
+  alert("entrer le note")
+  return;
+}
 
   const avi = {
     client:nclient.value,
@@ -241,6 +275,7 @@ btn_avis.addEventListener("click",function(){
   
    afficheavis();
   document.querySelector("#yassir form").reset();
+
 })
 }
 
@@ -324,19 +359,19 @@ send.addEventListener("click",function(){
 // validation de form maisson 
 
 if(job.value.trim()== ''){
-  job.style.border = "1px solid red"
+  job.style.border = "2px solid red"
   return;
 }
 if(details.value.trim()== ''){
-  details.style.border = "1px solid red"
+  details.style.border = "2px solid red"
   return;
 }
 if(day.value.trim()== ''){
-  day.style.border = "1px solid red"
+  day.style.border = "2px solid red"
   return
 }
 if(prix.value.trim()== ''){
-  prix.style.border = "1px solid red"
+  prix.style.border = "2px solid red"
   return;
 }
 
