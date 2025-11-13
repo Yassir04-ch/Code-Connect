@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Services — FreelanceLink</title>
+  <title>Services </title>
 
-  <!-- cSS Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" >
 </head>
 
 <body>
 
-  <!--  HEADER  -->
+ 
   <header class="bg-white shadow-sm">
     <nav class="navbar navbar-expand-lg container">
       <a class="navbar-brand fw-bold" href="#">FreelanceLink</a>
@@ -36,18 +36,18 @@
     </nav>
   </header>
 
-  <!-- ============ HERO SECTION ============ -->
+
   <section class="bg-light py-5 text-center">
     <div class="container">
       <h1 class="display-6 fw-bold">Offres & Services</h1>
-      <p class="lead text-muted">Explorez les services proposés par nos freelances</p>
+      <p class="lead text-muted">Explorez les services proposees par nos freelances</p>
     </div>
   </section>
 
   
   <main class="container my-5">
 
-    <!-- 🔍 Barre de recherche, filtres et tri -->
+    
     <section class="mb-4">
       <div class="row g-2 align-items-center">
         <div class="col-md-4">
@@ -56,20 +56,20 @@
 
         <div class="col-md-3">
           <select id="filterCategory" class="form-select" aria-label="Filtrer par spécialité">
-            <option value="">Toutes les spécialités</option>
-            <option value="dev-web">Développement Web</option>
+            <option value="">Toutes les specialitees</option>
+            <option value="dev-web">Developpement Web</option>
             <option value="design-ux">Design / UX</option>
             <option value="marketing">Marketing</option>
-            <option value="redaction">Rédaction</option>
+            <option value="redaction">Redaction</option>
           </select>
         </div>
 
         <div class="col-md-3">
           <select id="sortPrice" class="form-select" aria-label="Trier par prix">
             <option value="">Trier par</option>
-            <option value="price-asc">Prix : faible → élevé</option>
-            <option value="price-desc">Prix : élevé → faible</option>
-            <option value="time-asc">Délai : court → long</option>
+            <option value="price-asc">Prix : - → +</option>
+            <option value="price-desc">Prix : + → -</option>
+            <option value="time-asc">Delai : court d → long d</option>
           </select>
         </div>
 
@@ -82,7 +82,7 @@
     <!--  Liste des services -->
     <section aria-label="Liste des services">
       <div id="servicesContainer" class="row g-4" aria-live="polite">
-        <!-- Les cartes de services seront insérées ici par main.js -->
+        <!-- l cartes dial services aykono hna-->
       </div>
     </section>
 
@@ -91,7 +91,7 @@
     </nav>
   </main>
 
-  <!--  TEMPLATE CARTE SERVICE =========-->
+  
   <template id="templateServiceCard">
     <article class="col-12 col-md-6 col-lg-4">
       <div class="card h-100 shadow-sm">
@@ -99,7 +99,7 @@
         <div class="card-body d-flex flex-column">
           <h5 class="card-title"></h5>
           <p class="card-text text-muted mb-2"></p>
-          <p class="mb-2"><strong>Prix:</strong> <span class="service-price"></span> &middot; <strong>Délai:</strong> <span class="service-time"></span></p>
+          <p class="mb-2"><strong>Prix:</strong> <span class="service-price"></span> &middot; <strong>Delai:</strong> <span class="service-time"></span></p>
           <p class="mb-3 text-truncate description"></p>
           <div class="mt-auto d-flex gap-2">
             <button class="btn btn-outline-secondary btn-sm" data-action="view">Voir</button>
@@ -111,7 +111,7 @@
     </article>
   </template>
 
-  <!--  FORMULAIRE D AJOUT / MODIFICATION  -->
+ 
   <div id="serviceModalSkeleton" class="d-none">
     <form id="serviceForm" class="p-3 border rounded bg-light">
       <h5 class="mb-3">Ajouter / Modifier un service</h5>
@@ -129,17 +129,17 @@
           <input name="price" type="number" min="0" class="form-control" required>
         </div>
         <div class="col-6">
-          <label class="form-label">Délai (jours)</label>
+          <label class="form-label">Delai (jours)</label>
           <input name="time" type="number" min="0" class="form-control" required>
         </div>
       </div>
       <div class="mb-3">
-        <label class="form-label">Catégorie</label>
+        <label class="form-label">Categorie</label>
         <select name="category" class="form-select" required>
-          <option value="dev-web">Développement Web</option>
+          <option value="dev-web">Developpement Web</option>
           <option value="design-ux">Design / UX</option>
           <option value="marketing">Marketing</option>
-          <option value="redaction">Rédaction</option>
+          <option value="redaction">Redaction</option>
         </select>
       </div>
       <div class="d-flex gap-2 justify-content-end">
@@ -152,14 +152,12 @@
  
   <footer class="bg-dark text-white py-4 mt-5">
     <div class="container text-center small">
-      <div>© <span id="year">2025</span> FreelanceLink — Tous droits réservés</div>
-      <div>Prototype: Figma • Données: JSON • Front: Bootstrap</div>
+      <div>© <span id="year">2025</span> FreelanceLink — Tous droits reserves(Allam-Oughlane-Cherqui-Sertati)</div>
+      <div>Prototype: Figma • Donnees: JSON • Front: Bootstrap</div>
     </div>
   </footer>
 
-  <!--  JS Bootstrap + ton script -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../main.js"></script>
+  <script src="/main.js"></script>
 
 </body>
 </html>

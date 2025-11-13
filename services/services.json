@@ -1,52 +1,32 @@
 [
   {
-    "id": 1,
-    "title": "Création de site vitrine responsive",
-    "description": "Développement complet d’un site vitrine moderne et responsive avec intégration Bootstrap et hébergement inclus.",
-    "freelancer": "Oughlane",
+    "id": "svc-01",
+    "title": "Création de site vitrine",
+    "freelance": "Oughlane",
     "category": "dev-web",
-    "price": 1200,
+    "price": 100,
     "time": 7,
-    "image": "../assets/images/service1.jpg"
+    "description": "Développement d’un site vitrine responsive et optimisé SEO.",
+    "image": "assets/img/sample-service.jpg"
   },
   {
-    "id": 2,
-    "title": "UI/UX Design d’application mobile",
-    "description": "Création d’une interface utilisateur intuitive pour application mobile, avec prototype interactif Figma.",
-    "freelancer": "Younes Rajix",
+    "id": "svc-02",
+    "title": "Refonte UX Design",
+    "freelance": "Amira Design",
     "category": "design-ux",
-    "price": 950,
-    "time": 5,
-    "image": "../assets/images/service2.jpg"
-  },
-  {
-    "id": 3,
-    "title": "Campagne marketing digitale",
-    "description": "Lancement d’une campagne multi-canal avec suivi des performances (SEO, emailing, Google Ads).",
-    "freelancer": "Mouad Sartati",
-    "category": "marketing",
-    "price": 800,
+    "price": 250,
     "time": 10,
-    "image": "../assets/images/service3.jpg"
+    "description": "Amélioration de l’expérience utilisateur et refonte d’interface.",
+    "image": "assets/img/sample-service.jpg"
   },
   {
-    "id": 4,
-    "title": "Rédaction d’articles SEO",
-    "description": "Rédaction optimisée SEO de 5 articles de blog avec recherche de mots-clés et maillage interne.",
-    "freelancer": "Yassir Cherqui",
-    "category": "redaction",
-    "price": 400,
-    "time": 4,
-    "image": "../assets/images/service4.jpg"
-  },
-  {
-    "id": 5,
-    "title": "Développement d’un portfolio personnel",
-    "description": "Conception et développement d’un site portfolio responsive en HTML, CSS, JS et Tailwind.",
-    "freelancer": "Oughlane",
-    "category": "dev-web",
-    "price": 1000,
-    "time": 6,
-    "image": "../assets/images/service5.jpg"
+    "id": "svc-03",
+    "title": "Campagne Marketing Facebook",
+    "freelance": "Youssef Media",
+    "category": "marketing",
+    "price": 150,
+    "time": 5,
+    "description": "Mise en place d’une stratégie marketing ciblée pour booster vos ventes.",
+    "image": "assets/img/sample-service.jpg"
   }
 ]

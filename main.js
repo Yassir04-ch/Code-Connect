@@ -1,5 +1,5 @@
 
-// ------- DOM Freelances --------------------
+// DOM Freelances
 const btn_freelance = document.getElementById("btn_freelance");
 const Carte = document.getElementById("Carte"); 
 const img_freelance = document.getElementById("img_freelance")
@@ -15,7 +15,7 @@ const selectFiltre = document.getElementById("filtre");
 const add_freelance_Form = document.forms['add_freelance'];
 const submit = document.getElementById("submit")
 
-//-------------cart-profile-dom------
+//cart-profile-dom
 const image_profil=document.getElementById('image_profil');
 
 const btn_voir = document.getElementsByClassName(".mouad");
@@ -24,7 +24,7 @@ const btn_voir = document.getElementsByClassName(".mouad");
 
 let ListFreeLence ;
 
-// Data Json 
+//  njibo Data Json 
 
 async function fetshdata(file){
     let get_data = await fetch(file);
@@ -256,7 +256,7 @@ function saveFreelanceChanges() {
     skils: skill,
     spécialisations: specialisation,
     am
-    amaunt: `${amount}€/h`,
+   , amaunt: `${amount}€/h`,
     photos: photo || ListFreeLence[selectedFreelancerIndex].photos
   };
 
@@ -290,10 +290,10 @@ selectFiltre.addEventListener("change",filter)
 
 
 // Charger les services 
-// ------- DOM Freelances --------------------
+//DOM Freelances 
 
 
-// ---------- Data Json ----------------
+//Data Json
 async function fetshdata(file){
     let get_data = await fetch(file);
     let xml = await get_data.text();
@@ -464,165 +464,174 @@ function saveFreelanceChanges() {
 
   localStorage.setItem("freelancers", JSON.stringify(ListFreeLence));
   AddListFreeLance();
-  alert("Profil mis à jour !");
+  alert("Profil mis a jour !");
 }
 
 
-// 4userstorie OUGHLANE =functions dial service page services
+// main.js : Gestion de la page Services
+
+// Slection des elements HTML
+const container = document.getElementById("servicesContainer");
+const searchInput = document.getElementById("servicesSearch");
+const filterSelect = document.getElementById("filterCategory");
+const sortSelect = document.getElementById("sortPrice");
+const addButton = document.getElementById("openAddService");
+const template = document.getElementById("templateServiceCard");
+const modalSkeleton = document.getElementById("serviceModalSkeleton");
+
+// Tableau principal des services
+let services = [];
+
+// Chargement initial des donnes
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadServices();
+  renderServices(services);
+});
+
+// Fonction njib  services mn json ola mn 
+const checkFetchData = async(serviceData, callback) => {
+  let serviceData = await fetch('./services/services.json'${serviceData})
+  let serviceDataJson = await serviceData.json();
+  return serviceDataJson;
+
+}
+
+function checkServicesHosting(h)
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  const servicesContainer = document.getElementById("servicesContainer");
-  const searchInput = document.getElementById("servicesSearch");
-  const filterSelect = document.getElementById("filterCategory");
-  const sortSelect = document.getElementById("sortPrice");
-  const addServiceBtn = document.getElementById("openAddService");
-  const serviceForm = document.getElementById("serviceForm");
-  const template = document.getElementById("templateServiceCard");
+//Affichage dynamique des services 
+function renderServices(list) {
+  container.innerHTML = ""; // on vide le container avant de le remplir
+  const fragment = document.createDocumentFragment();
 
-  let servicesList = [];
-  let filteredServices = [];
-  const LS_KEY = "freelancelink_services_v1";
+  list.forEach(service => {
+    const card = template.content.cloneNode(true);
+    card.querySelector(".card-img-top").src = service.image;
+    card.querySelector(".card-title").textContent = service.title;
+    card.querySelector(".card-text").textContent = `Freelance : ${service.freelance} — Spécialité : ${formatCategory(service.category)}`;
+    card.querySelector(".service-price").textContent = `${service.price} DH`;
+    card.querySelector(".service-time").textContent = `${service.time} jours`;
+    card.querySelector(".description").textContent = service.description;
 
-  async function fetchServicesData() {
-    try {
-      const local = localStorage.getItem(LS_KEY);
-      if (local) {
-        servicesList = JSON.parse(local);
-        filteredServices = [...servicesList];
-        renderServices(filteredServices);
-        return;
-      }
+    // Actions des boutons
+    card.querySelector("[data-action='view']").addEventListener("click", () => viewService(service));
+    card.querySelector("[data-action='edit']").addEventListener("click", () => openForm(service));
+    card.querySelector("[data-action='delete']").addEventListener("click", () => deleteService(service.id));
 
-//njib data bach ntesti  error
-
-      const data = await res.json();
-      const res = await fetch("./services/services.json)
-        
-      
-      filteredServices = [...servicesList];
-      localStorage.setItem(LS_KEY, JSON.stringify(servicesList));
-      renderServices(filteredServices);
-
-  function renderServices(list) {
-    servicesContainer.innerHTML = "";
-    if (!list.length) {
-      servicesContainer.innerHTML = `<p class="text-center text-muted">Aucun service trouvé.</p>`;
-      return;
-    }
-
-    list.forEach((s, index) => {
-      const card = template.content.cloneNode(true);
-      card.querySelector("img").src = svc.image || "../assets/images/default-service.jpg";
-      card.querySelector(".card-title").textContent = s.title;
-      card.querySelector(".card-text").textContent = `Freelance: ${svc.freelancer} — Spécialité: ${svc.category}`;
-      card.querySelector(".service-price").textContent = `${s.price} DH`;
-      card.querySelector(".service-time").textContent = `${s.time} jours`;
-      card.querySelector(".description").textContent = s.description;
-
-      card.querySelector("[data-action='view']").addEventListener("click", () => viewService(svc));
-      card.querySelector("[data-action='edit']").addEventListener("click", () => editService(index));
-      card.querySelector("[data-action='delete']").addEventListener("click", () => deleteService(index));
-      servicesContainer.appendChild(card);
-    });
-  }
-
-  searchInput.addEventListener("input", () => applyFilters());
-  filterSelect.addEventListener("change", () => applyFilters());
-  sortSelect.addEventListener("change", () => applyFilters());
-
-  function applyFilters() {
-    let result = [...servicesList];
-    const searchTerm = searchInput.value.toLowerCase().trim();
-    const cat = filterSelect.value;
-    const sort = sortSelect.value;
-
-    if (searchTerm) {
-      result = result.filter(svc =>
-        svc.title.toLowerCase().includes(searchTerm) ||
-        svc.freelancer.toLowerCase().includes(searchTerm) ||
-        svc.category.toLowerCase().includes(searchTerm)
-      );
-    }
-
-    if (cat) result = result.filter(svc => svc.category === cat);
-
-    if (sort === "price-asc") result.sort((a, b) => a.price - b.price);
-    else if (sort === "price-desc") result.sort((a, b) => b.price - a.price);
-    else if (sort === "time-asc") result.sort((a, b) => a.time - b.time);
-
-    filteredServices = result;
-    renderServices(filteredServices);
-  }
-
-  addServiceBtn.addEventListener("click", () => {
-    serviceForm.reset();
-    serviceForm.dataset.mode = "add";
-    alert("Remplissez le formulaire pour ajouter un service !");
+    fragment.appendChild(card);
   });
 
-  serviceForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+  container.appendChild(fragment);
+}
 
-    const formData = new FormData(serviceForm);
+// 3. Recherche / Filtrage / Tri 
+searchInput.addEventListener("input", applyFilters);
+filterSelect.addEventListener("change", applyFilters);
+sortSelect.addEventListener("change", applyFilters);
+
+function applyFilters() {
+  let filtered = [...services];
+
+  const term = searchInput.value.toLowerCase();
+  const cat = filterSelect.value;
+  const sort = sortSelect.value;
+
+  // Recherche texte
+  if (term) {
+    filtered = filtered.filter(s =>
+      s.title.toLowerCase().includes(term) ||
+      s.freelance.toLowerCase().includes(term) ||
+      s.description.toLowerCase().includes(term)
+    );
+  }
+
+  // Filtrage par categorie
+  if (cat) {
+    filtered = filtered.filter(s => s.category === cat);
+  }
+
+  // Tri par prix ou dlai
+  if (sort === "price-asc") filtered.sort((a, b) => a.price - b.price);
+  if (sort === "price-desc") filtered.sort((a, b) => b.price - a.price);
+  if (sort === "time-asc") filtered.sort((a, b) => a.time - b.time);
+
+  renderServices(filtered);
+}
+
+// 4. Ajout / Modification / Suppressio
+addButton.addEventListener("click", () => openForm());
+
+// Ouvre le formulaire (pour ajout ou modification)
+function openForm(service = null) {
+  const modal = modalSkeleton.cloneNode(true);
+  modal.classList.remove("d-none");
+
+  const form = modal.querySelector("#serviceForm");
+  document.body.appendChild(modal);
+
+  // Prremplir si modification
+  if (service) {
+    form.title.value = service.title;
+    form.description.value = service.description;
+    form.price.value = service.price;
+    form.time.value = service.time;
+    form.category.value = service.category;
+  }
+
+  // Boutoon annuler
+  form.querySelector("[data-action='cancel']").onclick = () => modal.remove();
+
+  // Soumission
+  form.onsubmit = e => {
+    e.preventDefault();
     const newService = {
-      id: Date.now(),
-      title: formData.get("title").trim(),
-      description: formData.get("description").trim(),
-      freelancer: "Oughlane",
-      category: formData.get("category"),
-      price: parseInt(formData.get("price")),
-      time: parseInt(formData.get("time")),
-      image: "../assets/images/default-service.jpg"
+      id: service ? service.id : "svc-" + Date.now(),
+      title: form.title.value.trim(),
+      description: form.description.value.trim(),
+      freelance: service ? service.freelance : "Freelance inconnu",
+      category: form.category.value,
+      price: parseInt(form.price.value),
+      time: parseInt(form.time.value),
+      image: "assets/img/sample-service.jpg"
     };
 
-    if (!newService.title || !newService.description) {
-      alert("Champs obligatoires manquants !");
-      return;
-    }
-
-    if (serviceForm.dataset.mode === "edit") {
-      const index = serviceForm.dataset.index;
-      servicesList[index] = newService;
-      alert(" Service modifie avec succees !");
-      serviceForm.dataset.mode = "add";
+    if (service) {
+      // Modification
+      services = services.map(s => (s.id === service.id ? newService : s));
     } else {
-      servicesList.push(newService);
-      alert("Service ajouté avec succees !");
+      // Ajout
+      services.push(newService);
     }
 
-    localStorage.setItem(LS_KEY, JSON.stringify(servicesList));
-    renderServices(servicesList);
-    serviceForm.reset();
-  });
+    localStorage.setItem("services", JSON.stringify(services));
+    renderServices(services);
+    modal.remove();
+  };
+}
 
-  function editService(index) {
-    const s = servicesList[index];
-    serviceForm.title.value = s.title;
-    serviceForm.description.value = s.description;
-    serviceForm.price.value = s.price;
-    serviceForm.time.value =s.time;
-    serviceForm.category.value = s.category;
-
-    serviceForm.dataset.mode = "edit";
-    serviceForm.dataset.index = index;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+// Supprimer un service
+function deleteService(id) {
+  if (confirm("Supprimer ce service ?")) {
+    services = services.filter(s => s.id !== id);
+    localStorage.setItem("services", JSON.stringify(services));
+    renderServices(services);
   }
+}
 
-  function deleteService(index) {
-   
-    if (confirm("tu va supprimmer ce service")) 
-      return;
-    servicesList.splice(index, 1);
-    
-    }
-    renderServices(servicesList);
+// Voir un service 
+function viewService(service) {
+  alert(
+    `Service : ${service.title}\nFreelance : ${service.freelance}\nPrix : ${service.price} DH\nDélai : ${service.time} jours\n\n${service.description}`
+  );
+}
+
+// 6. Utils 
+function formatCategory(cat) {
+  switch (cat) {
+    case "dev-web": return "Développement Web";
+    case "design-ux": return "Design / UX";
+    case "marketing": return "Marketing";
+    case "redaction": return "Rédaction";
+    default: return "Autre";
   }
-  services
-
-  function viewService(s) {
-    alert(` ${s.title}\n\n${s.description}\nPrix : ${s.price} DH\nDurée : ${s.time} jours\nFreelance : ${s.freelancer}`);
-  }
-
-  fetchServicesData();
-});
+}
