@@ -15,9 +15,75 @@ const add_freelance_Form = document.forms['add_freelance'];
 const submit = document.getElementById("submit")
 
 //-------------cart-profile-dom------
-const image_profil=document.getElementById('image_profil');
 
-const btn_voir = document.getElementsByClassName("mouad");
+
+const profils = document.getElementById("affich_prf");
+const btn_voir = document.querySelectorAll('.btn_voir');
+let the_name_of_profile = document.getElementById('the_name_of_profile');
+let the_skile =document.getElementById("Specialisee")
+let the_amaunt =document.getElementById("amaunta")
+let the_description=document.getElementById("description")
+let competences=document.getElementById("Competences")
+
+
+
+
+let profil;
+async function fetsprofile(file) {
+  let get_data = await fetch(file);
+  let xml = await get_data.text();
+  profil = JSON.parse(xml);
+  affo();
+
+ 
+}
+fetsprofile('/services/data.json');
+
+function affo() {
+ console.log(profil[0].fullName)
+
+
+let url =  new URLSearchParams(window.location.search)
+   let username =url.get("name");
+   console.log(username)
+   
+  const lev = profil.filter(Obj => Obj.fullName ==username)
+  
+     the_name_of_profile.innerHTML  = lev[0].fullName
+      the_skile.innerHTML  = lev[0].skils
+       the_amaunt.innerHTML=lev[0].amaunt
+         the_description.innerHTML=lev[0].description
+          
+         lev.forEach(element => {
+           competences.innerHTML += "";
+          let cardu =`<span class=" badge bg-primary skill-badge">${element.compétences } </span>`
+          competences.innerHTML+=cardu
+         })
+        //  for(let i = 0 ;i <3;i++){
+         
+        //    competences.innerHTML = "";
+        //   let cardu =`<span class="badge bg-primary skill-badge">${lev[0].compétences[i]}</span>`
+        //   competences.innerHTML=cardu
+        //  }
+
+ 
+}
+    
+  
+  // profil.forEach(profils  => {
+
+
+ 
+  
+    
+  // })
+
+   
+  
+  
+
+
+
 
 // ---------------- DOM mession --------------------
 
@@ -29,6 +95,7 @@ async function fetshdata(file) {
   let get_data = await fetch(file);
   let xml = await get_data.text();
   ListFreeLence = JSON.parse(xml);
+  
 
   //  ider verification  ila kano les doonnes f local storage
   const stored = localStorage.getItem("freelancers");
@@ -77,7 +144,10 @@ if(localStorage.getItem('freelancers')){
 
 // ---------functions ----------------
 
+
+
 function AddListFreeLance(){
+
 
 
    div_row.innerHTML = "";
@@ -97,7 +167,7 @@ function AddListFreeLance(){
           </div>
           <div class="card-footer bg-transparent d-flex justify-content-between">
             <small id="amuont_freeLance" class="text-muted">${element.amaunt}</small>
-            <button type="button" class="btn btn-primary mouad" data-bs-toggle="modal" data-bs-target="#affich_prf" >Voir</button>
+            <a  href="profile.html?name=${element.fullName}" class="btn_voir btn btn-primary "   >Voir</a>
           </div>
         </div>
       </div> `
@@ -107,6 +177,7 @@ function AddListFreeLance(){
     });
 
 }
+
 
 
 // list des option 
@@ -144,7 +215,7 @@ function filter(){
             </div>
             <div class="card-footer bg-transparent d-flex justify-content-between">
               <small class="text-muted">${element.amaunt}</small>
-              <button type="button" class="btn btn-primary mouad" data-bs-toggle="modal" data-bs-target="#affich_prf">Voir</button>
+              <button type="button" class="btn_voir btn-primary" data-bs-toggle="modal" data-bs-target="#affich_prf">Voir</button>
             </div>
           </div>
         </div>`;
@@ -190,13 +261,13 @@ async function fetshmission(file){
 function AddListmission(){
     div_misson.innerHTML = "";
 
-    mission.forEach(mouad => {
+    mission.forEach(element => {
 
          let card_1 = `<div class="col-md-4">
         <div class="card mission-card p-3">
-        <h5 class="card-title">${mouad.thework}</h5>
-          <p class="text-muted mb-2">${mouad.prix_time}</p>
-          <p>${mouad.deteils}</p>
+        <h5 class="card-title">${element.thework}</h5>
+          <p class="text-muted mb-2">${element.prix_time}</p>
+          <p>${element.deteils}</p>
           <a href="#" class="btn btn-primary">details</a>
         </div>
       </div>`

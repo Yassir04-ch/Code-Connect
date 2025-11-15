@@ -10,108 +10,52 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
-</head>
+</head >
 
-<body>
+<body class=>
   <!-- Scrollable modal -->
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mouad_sr">
-    posting
-  </button>
-<div class="modal fade" id="mouad_sr" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">the job :</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">the prix:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">the day:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">the details:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mouad">
-    posting
-  </button>
-
-  <div class="modal fade" id="mouad" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Profil</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog  ">
+      <div class="modal-content ">
+        <div class="modal-header d-flex justify-content-center">
+          <h1 class="modal-title fs-5 " id="staticBackdropLabel">Profil</h1>
+          
         </div>
-        <div class="modal-body">
+        <div class="modal-body flex-column justify-content-around d-flex   vh-100">
 
-          <div class="  container ">
-            <img src="/assets/download (10).jpg" alt="Mouad" class="img-thumbnail avatar mt-2 mb-3">
+          <div class="  d-flex align-items-center text-center border border-dark p-3">
+            <img src="/assets/download (10).jpg" height="120px" width="120px" alt="Mouad" id="" class="img-thumbnail avatar mt-2 mb-3  justify-content-end">
 
-            <h4 class="mb-0 col" id="the_nme_of_the_profil">Mouad El Amrani</h4>
-            <div class="small-muted mb-2 col">Full-Stack Web & Mobile Developer</div>
-            <p class="service-rate col">25 EUR / heure</p>
+            <h4 class="mb-0 col" id="the_name_of_profile"></h4>
+
+            <div class="small-muted mb-2 col"  id="Specialisee"></div>
+            <p class="service-rate col" id="amaunta">25 EUR / heure</p>
           </div>
-          <div>
+          <div class="  border border-dark">
             <h5 class="mb-1">À propos</h5>
-            <p class="small-muted mb-2">
+            <p class="small-muted mb-2" id="description">
               Développeur full-stack avec 3 ans d'expérience, spécialisé en JavaScript, React, Node.js et Flutter.
               J'aime construire des interfaces propres et des APIs performantes.
             </p>
           </div>
 
-          <div class="mb-3">
+          <div class="mb-3  border border-dark">
             <h6 class="mb-2">Compétences</h6>
-            <div>
-              <span class="badge bg-primary skill-badge">JavaScript — expert (4 ans)</span>
-              <span class="badge bg-primary skill-badge">React — advanced (3 ans)</span>
-              <span class="badge bg-primary skill-badge">Node.js — advanced (3 ans)</span>
-              <span class="badge bg-primary skill-badge">Flutter — intermediate (2 ans)</span>
-            </div>
-          </div>
-          <div class="mb-3">
-            <h6 class="mb-2">project</h6>
-            <div>
-              <span class="badge bg-primary skill-badge">a browser motor<a class="link-light link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="#">>google</a></span>
-              <span class="badge bg-primary skill-badge">for gaming and playes <a class="link-light link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="#">A-rena</a></span>
-              <span class="badge bg-primary skill-badge">fot watching movie <a class="link-light link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="#"> netfilx</a></span>
-              <span class="badge bg-primary ">the sit for postin <a class="link-light link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="#">facbook</a></span>
+            <div id="Competences" class="row g-4">
+          
             </div>
           </div>
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">modification </button>
         </div>
       </div>
     </div>
-  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/main.js"></script>
+
 </body>
 
 </html>
