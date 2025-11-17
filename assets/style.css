@@ -1,0 +1,18 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+.card-body img{
+    background: cover;
+    width: 100px;
+    height: 100px;
+}
+
+.container{
+    margin-top: 2rem;
+}
+
+header{
+    padding: 0px 10px;
+}
