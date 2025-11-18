@@ -6,7 +6,7 @@
         "note" : "(4.7)" ,
         "skils" : "Développeur Web",
         "amaunt" : "40€/h",
-        "compétences":["JavaScript — expert (4 ans)","React — advanced (3 ans)","Node.js — advanced (3 ans)"],
+        "compétences":["Java — expert (3 ans)","React — advanced (1 ans)","Node.js — advanced (3 ans)"],
         "description":" Développeur full-stack avec 5 ans d'expérience, spécialisé en Java, React,e Flutter.J'aime construire des interfaces propres et des APIs performantes."
     },
 
@@ -17,8 +17,8 @@
         "note" : " (4.4)" ,
         "skils" : "Designer",
         "amaunt" : "35€/h",
-        "compétences":["JavaScript — expert (4 ans)","React — advanced (3 ans)","Node.js — advanced (3 ans)"],
-        "description":" Développeur Designer  avec 2 ans d'expérience, spécialisé en Javascript, React, Node.js et Flutter.J'aime construire des interfaces propres et des APIs performantes."
+        "compétences":["JavaScript — expert (5 ans)","React — advanced (4 ans)","figma — advanced (3 ans)"],
+        "description":" Développeur Designer  avec 2 ans d'expérience, spécialisé en Javascript, React,Flutter.J'aime construire des interfaces propres et des APIs performantes."
 
     },
 
@@ -29,8 +29,8 @@
         "note" : "(4.9)" ,
         "skils" : "Rédacteur",
         "amaunt" : "30€/h",
-        "compétences":["JavaScript — expert (4 ans)","React — advanced (3 ans)","Node.js — advanced (3 ans)"],
-        "description":" Développeur full-stack avec 1 ans d'expérience, spécialisé en Java, React, Node.js et Flutter.J'aime construire des interfaces propres et des APIs performantes."
+        "compétences":["JavaScript — expert (4 ans)","php — advanced (3 ans)","Node.js — advanced (3 ans)"],
+        "description":" Développeur full-stack avec 1 ans d'expérience, spécialisé en Javascript, React, Node.js et Flutter."
 
 
     }
