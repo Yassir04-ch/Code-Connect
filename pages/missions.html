@@ -14,16 +14,13 @@
 
 <body>
 
+  <div id="header"></div>
+
   <!-- Header Section -->
   <header class="mission-header  ">
     <div class=" d-flex justify-content-around gap-5 align-items-center">
       <h1 class="display-5 fw-bold">Freelance <br> Missions</h1>
       <p class="lead">Find or post your next <br> freelance mission easily</p>
-
-      <button type="button" class="btn btn-primary sara" data-bs-toggle="sara" data-bs-target="#mouad_sr" >
-        
-        potstin
-      </button>
 
     </div>
     </div>
@@ -32,7 +29,7 @@
   <!-- Mission List Section -->
   <section class="container my-5">
     <h2 class="text-center mb-4">Available Missions</h2>
-    <div class="row g-4" id="card_mission">
+    <div  id="card_mission" class="row g-4">
 
       <!-- Mission Card -->
 
@@ -55,34 +52,32 @@
         <form>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">the job :</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <input type="text" class="form-control" id="job">
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">the prix:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <input type="text" class="form-control" id="prix">
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">the day:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <input type="text" class="form-control" id="day">
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">the details:</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <textarea class="form-control" id="details"></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        <button id="send" type="button" class="btn btn-primary">Send message</button>
       </div>
     </div>
   </div>
 </div>
 
-  <script src="../main.js">
-  </script>
+  <script src="../main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+  
 </body>
-
 </html>
